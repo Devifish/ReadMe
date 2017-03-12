@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_booklist"
+            android:icon="@drawable/ic_book"
+            android:checked="true"
+            android:title="@string/book_list" />
+        <item
+            android:id="@+id/nav_bookclass"
+            android:icon="@drawable/ic_list"
+            android:title="@string/book_class" />
+        <item
+            android:id="@+id/nav_community"
+            android:icon="@drawable/ic_people"
+            android:title="@string/community" />
+    </group>
+
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/setting" />
+
+    <item android:title="@string/other">
+        <menu>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_send"
+                android:title="@string/send" />
+            <item
+                android:id="@+id/nav_info"
+                android:icon="@drawable/ic_info"
+                android:title="@string/info" />
+        </menu>
+    </item>
+
+</menu>

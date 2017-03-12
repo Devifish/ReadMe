@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">读我吧</string>
+
+    <string name="book_list">书架</string>
+    <string name="book_class">分类</string>
+    <string name="community">社区</string>
+
+    <string name="book_detail">书籍详情</string>
+    <string name="add_book">加入书架</string>
+    <string name="book_start">开始阅读</string>
+    <string name="book_continue">继续阅读</string>
+    <string name="book_del">移除本书</string>
+    <string name="chapter_all">全部章节</string>
+
+    <string name="navigation_drawer_open">打开导航抽屉</string>
+    <string name="navigation_drawer_close">关闭导航抽屉</string>
+
+    <string name="check_update">检查更新</string>
+    <string name="version">当前版本：%s</string>
+    <string name="donation">我要打赏作者</string>
+    <string name="comment">给个好评</string>
+
+    <string name="open">打开</string>
+    <string name="setting">设置</string>
+    <string name="exit">退出</string>
+    <string name="test">测试</string>
+    <string name="edit">修改</string>
+    <string name="search">搜索</string>
+    <string name="add">添加</string>
+    <string name="tools">工具</string>
+    <string name="share">分享</string>
+    <string name="send">捐赠</string>
+    <string name="other">其他</string>
+    <string name="info">关于</string>
+</resources>
