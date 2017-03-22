@@ -1,4 +1,4 @@
-package com.zhang.readme.tools;
+package com.zhang.readme.util;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

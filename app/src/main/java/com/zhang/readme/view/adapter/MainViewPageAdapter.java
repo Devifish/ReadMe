@@ -1,13 +1,13 @@
-package com.zhang.readme.ui.adapter;
+package com.zhang.readme.view.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.zhang.readme.ui.fragment.BookListPageFragment;
-import com.zhang.readme.ui.fragment.BookClassPageFragment;
-import com.zhang.readme.ui.fragment.CommunityPageFragment;
-import com.zhang.readme.ui.fragment.base.MainPageLayoutBase;
+import com.zhang.readme.view.fragment.BookListPageFragment;
+import com.zhang.readme.view.fragment.BookClassPageFragment;
+import com.zhang.readme.view.fragment.CommunityPageFragment;
+import com.zhang.readme.view.fragment.base.MainPageFragmentBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MainViewPageAdapter extends FragmentPagerAdapter {
 
-    private List<MainPageLayoutBase> pageLayouts;
+    private List<MainPageFragmentBase> pageLayouts;
 
     public MainViewPageAdapter(FragmentManager fm) {
         super(fm);

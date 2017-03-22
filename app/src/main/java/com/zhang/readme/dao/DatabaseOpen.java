@@ -7,15 +7,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by zhang on 2017/3/5.
  *
- *
+ * 数据库创建
  */
 
-class DatabaseOpen extends SQLiteOpenHelper {
+public class DatabaseOpen extends SQLiteOpenHelper {
 
     private final static String NAME_DB = "readme.db";
     private final static String BOOKS_SQL = "CREATE TABLE BOOKS (" +
                     "  id              INTEGER PRIMARY KEY NOT NULL," +
-                    "  name            VARCHAR(50)         NOT NULL," +
+                    "  title           VARCHAR(50)         NOT NULL," +
                     "  author          VARCHAR(10)," +
                     "  book_path       VARCHAR(100)        NOT NULL," +
                     "  image_path      VARCHAR(100)" +
@@ -28,8 +28,8 @@ class DatabaseOpen extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(BOOKS_SQL);
-        db.execSQL("insert into books values (1, '一念永恒', '耳根', 'http://www.8dushu.com/xiaoshuo/69/69059/', null)");
-        db.execSQL("insert into books values (2, '圣虚', '辰东', 'http://www.8dushu.com/xiaoshuo/81/81637/', null)");
+        db.execSQL("insert into books(title, author, book_path, image_path) values ('一念永恒', '耳根', 'http://www.8dushu.com/xiaoshuo/69/69059/', '/data/user/0/com.zhang.readme/cache/69059s.jpg')");
+        db.execSQL("insert into books(title, author, book_path, image_path) values ('圣虚', '辰东', 'http://www.8dushu.com/xiaoshuo/81/81637/', '/data/user/0/com.zhang.readme/cache/81637s.jpg')");
     }
 
     @Override

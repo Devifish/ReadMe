@@ -1,4 +1,4 @@
-package com.zhang.readme.ui.fragment;
+package com.zhang.readme.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +15,11 @@ import android.widget.Toast;
 
 import com.zhang.readme.R;
 import com.zhang.readme.dao.BooksDao;
-import com.zhang.readme.model.BookInfo;
-import com.zhang.readme.ui.DetailActivity;
-import com.zhang.readme.ui.adapter.BookListRecyclerViewAdapter;
-import com.zhang.readme.ui.fragment.base.MainPageLayoutBase;
-
-import java.util.List;
+import com.zhang.readme.model.BookList;
+import com.zhang.readme.model.Book;
+import com.zhang.readme.view.DetailActivity;
+import com.zhang.readme.view.adapter.BookListRecyclerViewAdapter;
+import com.zhang.readme.view.fragment.base.MainPageFragmentBase;
 
 /**
  * Created by zhang on 2017/2/22.
@@ -28,12 +27,12 @@ import java.util.List;
  * @author zhang
  */
 
-public class BookListPageFragment extends MainPageLayoutBase {
+public class BookListPageFragment extends MainPageFragmentBase {
 
     private final static String title = "书架";
     private SwipeRefreshLayout swipeRefreshLayout;
-    private BooksDao books;
-    private List<BookInfo> list;
+    private BooksDao bookDao;
+    private BookList bookList;
 
     public BookListPageFragment() {super.setTitle(title);}
     
@@ -41,8 +40,9 @@ public class BookListPageFragment extends MainPageLayoutBase {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.page_booklist_main, container, false);
-        books = new BooksDao(this.getContext());
-        list = books.getBookList();
+        bookDao = new BooksDao(this.getContext());
+        bookList = bookDao.getBookList();
+        bookDao.close();
 
         //下拉刷新加载
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.page_booklist_swiperefesh);
@@ -57,7 +57,7 @@ public class BookListPageFragment extends MainPageLayoutBase {
         //RecyclerView加载
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.page_booklist_recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
-        BookListRecyclerViewAdapter adapter = new BookListRecyclerViewAdapter(this.getContext(), list);
+        BookListRecyclerViewAdapter adapter = new BookListRecyclerViewAdapter(this.getContext(), bookList);
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener());
         recyclerView.setAdapter(adapter);
         return view;
@@ -82,25 +82,24 @@ public class BookListPageFragment extends MainPageLayoutBase {
     }
 
     /**
-     * RecyclerView Item 点击事件
+     * RecyclerView Item 点击事件（点击/长按）
      * 实现书架item 项目逻辑
      */
     private class RecyclerViewItemClickListener implements BookListRecyclerViewAdapter.OnRecyclerViewItemClickListener {
 
         @Override
-        public void onClick(View v, BookInfo info) {
+        public void onClick(View v, Book book) {
             Intent intent = new Intent(getContext(), DetailActivity.class);
-            intent.putExtra("book_info", info);
+            intent.putExtra("book_info", book);
             startActivity(intent);
         }
 
         @Override
-        public boolean onLongClick(View v, BookInfo info) {
+        public void onLongClick(View v, Book info) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(info.getTitle());
             builder.setItems(new String[] {"置顶","从书架移除","删除"}, null);
             builder.show();
-            return false;
         }
     }
 }

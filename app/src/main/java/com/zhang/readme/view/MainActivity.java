@@ -1,4 +1,4 @@
-package com.zhang.readme.ui;
+package com.zhang.readme.view;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.zhang.readme.R;
-import com.zhang.readme.ui.adapter.MainViewPageAdapter;
+import com.zhang.readme.view.adapter.MainViewPageAdapter;
 
 /**
  * Created by zhang on 2017/1/16.
@@ -150,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_send:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ds.alipay.com/?from=mobilecodec&scheme=alipays%3A%2F%2Fplatformapi%2Fstartapp%3FsaId%3D10000007%26clientVersion%3D3.7.0.0718%26qrcode%3Dhttps%253A%252F%252Fqr.alipay.com%252FFKX01040EFSY2JLIHKMT8B%253F_s%253Dweb-other")));
-
                 break;
             case R.id.nav_info:
                 startActivity(new Intent(this, InfoActivity.class));
@@ -161,5 +160,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

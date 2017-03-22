@@ -1,8 +1,6 @@
-package com.zhang.readme.tools;
+package com.zhang.readme.util;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,24 +16,21 @@ import java.net.URL;
 
 public class FileCacheUtil {
 
-    @Nullable
     public static File getFileByURL(Context context, String url) {
-        File file = new File(getFileAtCachePath(context, url));
-        if (file.exists()) {
-            return file;
-        }else {
-            if (saveFileForCacheDir(url, file.getAbsolutePath())) {
+        if (url != null) {
+            File file = getFileAtCachePath(context, url);
+            if (file.exists()) {
                 return file;
-            }else {
-                return null;
+            } else if (saveFileForCacheDir(url, file.getAbsolutePath())) {
+                return file;
             }
         }
+        return null;
     }
 
-    public static String getFileAtCachePath(Context context, String url) {
-        File cache = context.getCacheDir();
+    public static File getFileAtCachePath(Context context, String url) {
         String fileName = url.substring(url.lastIndexOf("/"), url.length());
-        return cache.getAbsolutePath() + fileName;
+        return new File(context.getCacheDir(), fileName);
     }
 
     public static boolean saveFileForCacheDir(String url, String savePath) {

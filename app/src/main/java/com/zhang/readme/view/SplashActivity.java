@@ -1,4 +1,4 @@
-package com.zhang.readme.ui;
+package com.zhang.readme.view;
 
 import android.app.Activity;
 import android.content.Intent;

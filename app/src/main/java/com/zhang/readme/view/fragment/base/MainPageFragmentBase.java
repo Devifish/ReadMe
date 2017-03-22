@@ -1,4 +1,4 @@
-package com.zhang.readme.ui.fragment.base;
+package com.zhang.readme.view.fragment.base;
 
 import android.support.v4.app.Fragment;
 
@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
  *
  */
 
-public class MainPageLayoutBase extends Fragment {
+public class MainPageFragmentBase extends Fragment {
 
     private String title = "无标题";
 

@@ -1,11 +1,11 @@
-package com.zhang.readme.ui;
+package com.zhang.readme.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.zhang.readme.R;
-import com.zhang.readme.tools.Config;
+import com.zhang.readme.util.Config;
 
 public class InfoActivity extends AppCompatActivity {
 

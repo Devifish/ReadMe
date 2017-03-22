@@ -5,7 +5,7 @@
     android:id="@+id/page_booklist_swiperefesh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.BookListPageFragment">
+    tools:context=".view.fragment.BookListPageFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/page_booklist_recycler"

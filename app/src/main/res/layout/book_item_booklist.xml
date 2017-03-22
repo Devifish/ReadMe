@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="182dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="10dp"
@@ -15,13 +15,14 @@
         <ImageView
             android:id="@+id/book_image"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="128dp"
+            android:scaleType="fitXY"
             android:background="@color/colorPrimaryDark"
             android:contentDescription="@string/book_class" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="54dp"
             android:orientation="vertical"
             android:padding="5dp">
 

@@ -1,4 +1,4 @@
-package com.zhang.readme.ui.fragment;
+package com.zhang.readme.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zhang.readme.R;
-import com.zhang.readme.ui.fragment.base.MainPageLayoutBase;
+import com.zhang.readme.view.fragment.base.MainPageFragmentBase;
 
 /**
  * Created by zhang on 2017/2/22.
@@ -15,7 +15,7 @@ import com.zhang.readme.ui.fragment.base.MainPageLayoutBase;
  * @author zhang
  */
 
-public class BookClassPageFragment extends MainPageLayoutBase {
+public class BookClassPageFragment extends MainPageFragmentBase {
 
     private final static String title = "分类";
 
