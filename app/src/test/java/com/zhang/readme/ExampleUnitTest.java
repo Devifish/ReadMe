@@ -1,8 +1,8 @@
 package com.zhang.readme;
 
-import org.junit.Test;
+import com.zhang.readme.provider.impl.ChapterProvider_8DuShu;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -12,6 +12,6 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        System.out.print(new ChapterProvider_8DuShu("http://www.8dushu.com/xiaoshuo/44/44491/12007117.html").getBookChapterText());
     }
 }

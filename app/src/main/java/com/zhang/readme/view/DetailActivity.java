@@ -27,6 +27,7 @@ import com.zhang.readme.model.Book;
 import com.zhang.readme.model.ChapterList;
 import com.zhang.readme.model.BookDetail;
 import com.zhang.readme.provider.BookProvider;
+import com.zhang.readme.util.ProviderUtil;
 import com.zhang.readme.util.FileCacheUtil;
 
 import java.io.File;
@@ -127,7 +128,7 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         protected BookDetail doInBackground(Book... books) {
             Book book = books[0];
-            BookProvider provider = BookProvider.Builder(book.getBookPath(), BookProvider.PROVIDER_8DUSHU);
+            BookProvider provider = ProviderUtil.Builder(ProviderUtil.PROVIDER_8DUSHU).getBookProvider(book.getBookPath());
             BookDetail detail = new BookDetail();
             if (provider != null) {
                 //书籍详情，章节信息,封面图

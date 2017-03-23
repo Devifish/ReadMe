@@ -26,7 +26,6 @@ public class MainViewPageAdapter extends FragmentPagerAdapter {
 
     public MainViewPageAdapter(FragmentManager fm) {
         super(fm);
-
         pageLayouts = new ArrayList<>();
         pageLayouts.add(new BookListPageFragment());
         pageLayouts.add(new BookClassPageFragment());
