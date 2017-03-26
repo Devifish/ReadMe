@@ -1,5 +1,6 @@
 package com.zhang.readme;
 
+import com.zhang.readme.provider.impl.ChapterProvider_52BiQuGe;
 import com.zhang.readme.provider.impl.ChapterProvider_8DuShu;
 
 import org.junit.Test;
@@ -12,6 +13,6 @@ import org.junit.Test;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        System.out.print(new ChapterProvider_8DuShu("http://www.8dushu.com/xiaoshuo/44/44491/12007117.html").getBookChapterText());
+        System.out.print(new ChapterProvider_52BiQuGe("http://www.52biquge.com/biquge/52/52982/2838727.html").getBookChapterText());
     }
 }

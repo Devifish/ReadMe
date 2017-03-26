@@ -7,57 +7,21 @@
     android:fitsSystemWindows="true"
     tools:context="com.zhang.readme.view.ReadActivity">
 
-    <ScrollView
+    <include
+        layout="@layout/context_read"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/activity_vertical_margin"
-            android:orientation="vertical">
+    <ProgressBar
+        android:id="@+id/read_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="5dp"
-                    android:layout_height="28dp"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:background="@color/colorAccent"/>
-
-                <TextView
-                    android:id="@+id/read_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    tools:text="第一章 呵呵哒" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/read_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:lineSpacingMultiplier="1.5"
-                android:textColor="#444"/>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <RelativeLayout
+    <include
+        layout="@layout/menu_read"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-
-    </RelativeLayout>
+        android:layout_height="match_parent" />
 
 </FrameLayout>

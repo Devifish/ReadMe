@@ -10,10 +10,13 @@ import com.zhang.readme.model.ChapterList;
 
 public interface BookProvider {
 
+    /** 获取所有章节列表 */
     public ChapterList getChapterList();
 
+    /** 获取小说详情信息 */
     public String getBookInfo();
 
+    /** 获取小说封面图路径 */
     public String getBookImagePath();
 
 }

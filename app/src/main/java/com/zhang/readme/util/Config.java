@@ -15,7 +15,7 @@ import android.content.pm.PackageManager;
 public interface Config {
 
     /** 小说资源网站 */
-    public static final String MAIN_RES = "http://www.8dushu.com/";
+    public static final String MAIN_RES = "http://www.52biquge.com/";
 
     /** 服务器相关参数 */
     public static interface Server {

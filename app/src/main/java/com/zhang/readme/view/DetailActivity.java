@@ -1,5 +1,6 @@
 package com.zhang.readme.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,8 +36,12 @@ import java.io.File;
 
 public class DetailActivity extends AppCompatActivity {
 
+    /** 显示最近章节数的长度值 */
+    private static final int CHAPTER_LATELY = 5;
+
     private BooksDao dao;
     private BookDetail bookDetail;
+
     private TextView title;
     private TextView author;
     private ImageView image;
@@ -85,7 +91,7 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.menu_del:
-                startActivity(new Intent(this, ReadActivity.class));
+
                 break;
             default:
                 break;
@@ -113,7 +119,14 @@ public class DetailActivity extends AppCompatActivity {
                 if (bookDetail != null) {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(DetailActivity.this);
                     dialog.setTitle(bookDetail.getBook().getTitle());
-                    dialog.setItems(bookDetail.getChapterNameArray(), null);
+                    dialog.setItems(bookDetail.getChapterNameArray(), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            BookDetail temp = bookDetail;
+                            temp.setReadProgress(temp.getChapterList().size() - which - 1);
+                            startReadActivity(temp);
+                        }
+                    });
                     dialog.show();
                 }
             }
@@ -128,7 +141,8 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         protected BookDetail doInBackground(Book... books) {
             Book book = books[0];
-            BookProvider provider = ProviderUtil.Builder(ProviderUtil.PROVIDER_8DUSHU).getBookProvider(book.getBookPath());
+            //从小说源网站加载内容
+            BookProvider provider = ProviderUtil.Builder(ProviderUtil.PROVIDER_52BIQUGE).getBookProvider(book.getBookPath());
             BookDetail detail = new BookDetail();
             if (provider != null) {
                 //书籍详情，章节信息,封面图
@@ -164,12 +178,24 @@ public class DetailActivity extends AppCompatActivity {
             listView.setAdapter(new ArrayAdapter<>(
                     DetailActivity.this,
                         R.layout.chapter_item_detail,
-                            getChaterLastItem(list, 5)));
+                            getChaterLastItem(list, CHAPTER_LATELY)));
+
+
+            final BookDetail detail_list = detail;
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    detail_list.setReadProgress(detail_list.getChapterList().size() - position - 1);
+                    startReadActivity(detail_list);
+                }
+            });
             //加载添加到书架，开始阅读，继续阅读等按钮状态
             initButton();
             //显示隐藏内容
             progressBar.setVisibility(View.GONE);
             view.setVisibility(View.VISIBLE);
+            //首先隐藏再显示以防止listview加载内容时获得焦点
+            listView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -205,20 +231,23 @@ public class DetailActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
                 switch (((Button) v).getText().toString()) {
 					case "加入书架":
 						dao.insert(bookDetail.getBook());
 					    break;
 					case "开始阅读":
 					case "继续阅读":
-                        intent = new Intent(DetailActivity.this, ReadActivity.class);
-                        intent.putParcelableArrayListExtra("chapter_list", bookDetail.getChapterList());
-                        intent.putExtra("chapter_index", bookDetail.getReadProgress());
-                        startActivity(intent);
+                        startReadActivity(bookDetail);
 						break;
 				}
             }
         });
+    }
+
+    private void startReadActivity(BookDetail bookDetail) {
+        Intent intent = new Intent(DetailActivity.this, ReadActivity.class);
+        intent.putParcelableArrayListExtra("chapter_list", bookDetail.getChapterList());
+        intent.putExtra("chapter_index", bookDetail.getReadProgress());
+        startActivity(intent);
     }
 }

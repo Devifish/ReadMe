@@ -28,8 +28,8 @@ public class DatabaseOpen extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(BOOKS_SQL);
-        db.execSQL("insert into books(title, author, book_path, image_path) values ('一念永恒', '耳根', 'http://www.8dushu.com/xiaoshuo/69/69059/', '/data/user/0/com.zhang.readme/cache/69059s.jpg')");
-        db.execSQL("insert into books(title, author, book_path, image_path) values ('圣虚', '辰东', 'http://www.8dushu.com/xiaoshuo/81/81637/', '/data/user/0/com.zhang.readme/cache/81637s.jpg')");
+        db.execSQL("insert into books(title, author, book_path, image_path) values ('一念永恒', '耳根', 'http://www.52biquge.com/biquge/55/55270/', null)");
+        db.execSQL("insert into books(title, author, book_path, image_path) values ('圣虚', '辰东', 'http://www.52biquge.com/biquge/52/52982/', null)");
     }
 
     @Override

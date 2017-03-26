@@ -40,17 +40,18 @@ public class BookListRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Book book = bookList.get(position);
+        final int index = position;
         ((BookListViewHolder)holder).setInfo(book);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(v, book);
+                listener.onClick(v, book, index);
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                listener.onLongClick(v, book);
+                listener.onLongClick(v, book, index);
                 return false;
             }
         });
@@ -62,8 +63,8 @@ public class BookListRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnRecyclerViewItemClickListener{
-        void onClick(View v, Book book);
-        void onLongClick(View v, Book book);
+        void onClick(View v, Book book, int position);
+        void onLongClick(View v, Book book, int position);
     }
 
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {

@@ -1,5 +1,6 @@
 package com.zhang.readme.view.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,7 @@ public class BookListPageFragment extends MainPageFragmentBase {
 
     private final static String title = "书架";
     private SwipeRefreshLayout swipeRefreshLayout;
+    private BookListRecyclerViewAdapter recyclerViewAdapter;
     private BooksDao bookDao;
     private BookList bookList;
 
@@ -57,9 +59,9 @@ public class BookListPageFragment extends MainPageFragmentBase {
         //RecyclerView加载
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.page_booklist_recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
-        BookListRecyclerViewAdapter adapter = new BookListRecyclerViewAdapter(this.getContext(), bookList);
-        adapter.setOnItemClickListener(new RecyclerViewItemClickListener());
-        recyclerView.setAdapter(adapter);
+        recyclerViewAdapter = new BookListRecyclerViewAdapter(this.getContext(), bookList);
+        recyclerViewAdapter.setOnItemClickListener(new RecyclerViewItemClickListener());
+        recyclerView.setAdapter(recyclerViewAdapter);
         return view;
     }
 
@@ -88,17 +90,32 @@ public class BookListPageFragment extends MainPageFragmentBase {
     private class RecyclerViewItemClickListener implements BookListRecyclerViewAdapter.OnRecyclerViewItemClickListener {
 
         @Override
-        public void onClick(View v, Book book) {
+        public void onClick(View v, Book book, int position) {
             Intent intent = new Intent(getContext(), DetailActivity.class);
             intent.putExtra("book_info", book);
             startActivity(intent);
         }
 
         @Override
-        public void onLongClick(View v, Book info) {
+        public void onLongClick(View v, Book info, final int position) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(info.getTitle());
-            builder.setItems(new String[] {"置顶","从书架移除","删除"}, null);
+            builder.setItems(new String[]{"置顶", "缓存到本地", "移出书架"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case 0: //置顶
+                            break;
+                        case 1: //缓存到本地
+                            break;
+                        case 2: //移出书架
+                            bookList.remove(position);
+                            recyclerViewAdapter.notifyItemRemoved(position);
+                            break;
+                        default: break;
+                    }
+                }
+            });
             builder.show();
         }
     }
