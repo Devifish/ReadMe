@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zhang.readme.R;
-import com.zhang.readme.dao.BooksDao;
-import com.zhang.readme.model.BookList;
-import com.zhang.readme.model.Book;
+import com.zhang.readme.dao.BookListDao;
+import com.zhang.readme.entity.BookList;
+import com.zhang.readme.entity.Book;
 import com.zhang.readme.view.DetailActivity;
 import com.zhang.readme.view.adapter.BookListRecyclerViewAdapter;
 import com.zhang.readme.view.fragment.base.MainPageFragmentBase;
@@ -31,9 +31,10 @@ import com.zhang.readme.view.fragment.base.MainPageFragmentBase;
 public class BookListPageFragment extends MainPageFragmentBase {
 
     private final static String title = "书架";
+
     private SwipeRefreshLayout swipeRefreshLayout;
     private BookListRecyclerViewAdapter recyclerViewAdapter;
-    private BooksDao bookDao;
+    private BookListDao bookDao;
     private BookList bookList;
 
     public BookListPageFragment() {super.setTitle(title);}
@@ -42,7 +43,7 @@ public class BookListPageFragment extends MainPageFragmentBase {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.page_booklist_main, container, false);
-        bookDao = new BooksDao(this.getContext());
+        bookDao = new BookListDao(this.getContext());
         bookList = bookDao.getBookList();
         bookDao.close();
 
@@ -118,5 +119,11 @@ public class BookListPageFragment extends MainPageFragmentBase {
             });
             builder.show();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bookDao.close();
     }
 }

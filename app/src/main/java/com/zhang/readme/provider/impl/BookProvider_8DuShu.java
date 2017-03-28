@@ -1,7 +1,7 @@
 package com.zhang.readme.provider.impl;
 
-import com.zhang.readme.model.ChapterList;
-import com.zhang.readme.model.Chapter;
+import com.zhang.readme.entity.ChapterList;
+import com.zhang.readme.entity.Chapter;
 import com.zhang.readme.provider.BookProvider;
 import com.zhang.readme.provider.BaseProvider;
 

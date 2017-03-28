@@ -1,7 +1,10 @@
 package com.zhang.readme;
 
+import com.zhang.readme.entity.Book;
+import com.zhang.readme.entity.BookList;
 import com.zhang.readme.provider.impl.ChapterProvider_52BiQuGe;
-import com.zhang.readme.provider.impl.ChapterProvider_8DuShu;
+import com.zhang.readme.provider.impl.SearchProvider_8DuShu;
+import com.zhang.readme.util.ProviderUtil;
 
 import org.junit.Test;
 
@@ -13,6 +16,6 @@ import org.junit.Test;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        System.out.print(new ChapterProvider_52BiQuGe("http://www.52biquge.com/biquge/52/52982/2838727.html").getBookChapterText());
+
     }
 }

@@ -4,17 +4,19 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.zhang.readme.model.BookList;
-import com.zhang.readme.model.Book;
+import com.zhang.readme.entity.BookList;
+import com.zhang.readme.entity.Book;
 
 /**
  * Created by zhang on 2017/3/5.
  *
  */
 
-public class BooksDao extends DatabaseOpen{
+public class BookListDao extends DatabaseOpen{
 
-    public BooksDao(Context context) {super(context);}
+    private final static String TABLE_NAME = "books";
+
+    public BookListDao(Context context) {super(context);}
 
     public BookList getBookList() {
         BookList bookList = new BookList();
@@ -48,12 +50,16 @@ public class BooksDao extends DatabaseOpen{
             db.execSQL(sql);
             db.close();
             return true;
-        }else return false;
+        }else{
+            cursor.close();
+            db.close();
+            return false;
+        }
     }
 
     public boolean delete(int id) {
         SQLiteDatabase db = super.getReadableDatabase();
-        db.delete("id", "id=?", new String[] {id+""});
+        db.delete(TABLE_NAME, "id=?", new String[] {id+""});
         db.close();
         return true;
     }
@@ -66,6 +72,10 @@ public class BooksDao extends DatabaseOpen{
             cursor.close();
             db.close();
             return true;
-        }else return false;
+        }else{
+            cursor.close();
+            db.close();
+            return false;
+        }
     }
 }

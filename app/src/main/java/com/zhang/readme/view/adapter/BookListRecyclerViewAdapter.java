@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhang.readme.R;
-import com.zhang.readme.model.BookList;
-import com.zhang.readme.model.Book;
+import com.zhang.readme.entity.BookList;
+import com.zhang.readme.entity.Book;
 
 /**
  * Created by zhang on 2017/2/28.

@@ -1,4 +1,4 @@
-package com.zhang.readme.model;
+package com.zhang.readme.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,9 +14,7 @@ public class Chapter implements Parcelable {
     private String name;
     private String url;
 
-    public Chapter() {
-        super();
-    }
+    public Chapter() {}
 
     private Chapter(Parcel in) {
         name = in.readString();

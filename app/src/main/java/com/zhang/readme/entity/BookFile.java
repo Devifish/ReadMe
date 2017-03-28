@@ -1,4 +1,4 @@
-package com.zhang.readme.model;
+package com.zhang.readme.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

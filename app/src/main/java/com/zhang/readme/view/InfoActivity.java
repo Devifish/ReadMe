@@ -18,6 +18,5 @@ public class InfoActivity extends AppCompatActivity {
         TextView version = (TextView) findViewById(R.id.info_version);
         version.setText(String.format(version.getText().toString(), Config.AppInfo.getVersionName(this)));
 
-
     }
 }

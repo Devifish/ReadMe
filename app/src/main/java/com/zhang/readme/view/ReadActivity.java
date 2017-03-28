@@ -10,7 +10,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.zhang.readme.R;
-import com.zhang.readme.model.Chapter;
+import com.zhang.readme.entity.Chapter;
 import com.zhang.readme.provider.ChapterProvider;
 import com.zhang.readme.util.ProviderUtil;
 
@@ -51,7 +51,7 @@ public class ReadActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             Log.i("text_path", strings[0]);
-            ChapterProvider provider = ProviderUtil.Builder(ProviderUtil.PROVIDER_52BIQUGE).getChapterProvider(strings[0]);
+            ChapterProvider provider = ProviderUtil.Builder(ProviderUtil.PROVIDER_8DUSHU).getChapterProvider(strings[0]);
             return provider.getBookChapterText();
         }
 

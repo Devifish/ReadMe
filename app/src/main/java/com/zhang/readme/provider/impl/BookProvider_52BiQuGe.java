@@ -1,7 +1,7 @@
 package com.zhang.readme.provider.impl;
 
-import com.zhang.readme.model.Chapter;
-import com.zhang.readme.model.ChapterList;
+import com.zhang.readme.entity.Chapter;
+import com.zhang.readme.entity.ChapterList;
 import com.zhang.readme.provider.BaseProvider;
 import com.zhang.readme.provider.BookProvider;
 
@@ -11,6 +11,9 @@ import org.jsoup.select.Elements;
 
 /**
  * Created by zhang on 2017/3/26.
+ *
+ * 书籍内容提供源 (52笔趣阁)
+ * 来自 http://www.52biquge.com/
  */
 
 public class BookProvider_52BiQuGe extends BaseProvider implements BookProvider {

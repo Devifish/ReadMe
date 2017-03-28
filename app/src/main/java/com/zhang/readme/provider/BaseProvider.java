@@ -13,11 +13,16 @@ import java.io.IOException;
 
 public abstract class BaseProvider {
 
-    private final static String USERAGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36";
+    private final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36";
 
     protected Document getLink(String url) {
         try {
-            return Jsoup.connect(url).header("User-Agent", USERAGENT).get();
+            return Jsoup.connect(url)
+                    .timeout(5000)
+                    .header("Content-Type","text/html;charset=utf-8")
+                    .postDataCharset("utf-8")
+                    .userAgent(USER_AGENT)
+                    .get();
         } catch (IOException e) {
             e.printStackTrace();
         }

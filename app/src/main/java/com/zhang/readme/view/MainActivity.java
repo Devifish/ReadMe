@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 import com.zhang.readme.R;
 import com.zhang.readme.view.adapter.MainViewPageAdapter;
@@ -32,6 +33,7 @@ import com.zhang.readme.view.adapter.MainViewPageAdapter;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ViewPager viewPager;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         /* TabLayout与ViewPage加载 */
@@ -71,17 +73,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                //当ViewPage 切换时给FloatingActionButton 添加动画
+                //当ViewPage 切换时 界面的展示逻辑
                 switch (position) {
                     case 0:
                         fab.show();
                         fab.setImageResource(R.drawable.ic_add);
+                        navigationView.setCheckedItem(R.id.nav_booklist);
                         break;
-                    case 1: fab.hide();
+                    case 1:
+                        fab.hide();
+                        navigationView.setCheckedItem(R.id.nav_bookclass);
                         break;
                     case 2:
                         fab.show();
                         fab.setImageResource(R.drawable.ic_edit);
+                        navigationView.setCheckedItem(R.id.nav_community);
                         break;
                     default: break;
                 }
@@ -103,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         return true;
     }
 

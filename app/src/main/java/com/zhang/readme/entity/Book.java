@@ -1,4 +1,4 @@
-package com.zhang.readme.model;
+package com.zhang.readme.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -17,9 +17,7 @@ public class Book implements Parcelable {
     private String imagePath;
     private String bookPath;
 
-    public Book() {
-        super();
-    }
+    public Book() {}
 
     private Book(Parcel in) {
         id = in.readInt();

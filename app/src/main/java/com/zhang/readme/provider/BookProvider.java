@@ -1,6 +1,6 @@
 package com.zhang.readme.provider;
 
-import com.zhang.readme.model.ChapterList;
+import com.zhang.readme.entity.ChapterList;
 
 /**
  * Created by zhang on 2017/3/23.

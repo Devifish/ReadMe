@@ -24,10 +24,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.zhang.readme.R;
-import com.zhang.readme.dao.BooksDao;
-import com.zhang.readme.model.Book;
-import com.zhang.readme.model.ChapterList;
-import com.zhang.readme.model.BookDetail;
+import com.zhang.readme.dao.BookListDao;
+import com.zhang.readme.entity.Book;
+import com.zhang.readme.entity.ChapterList;
+import com.zhang.readme.entity.BookDetail;
 import com.zhang.readme.provider.BookProvider;
 import com.zhang.readme.util.ProviderUtil;
 import com.zhang.readme.util.FileCacheUtil;
@@ -39,7 +39,7 @@ public class DetailActivity extends AppCompatActivity {
     /** 显示最近章节数的长度值 */
     private static final int CHAPTER_LATELY = 5;
 
-    private BooksDao dao;
+    private BookListDao dao;
     private BookDetail bookDetail;
 
     private TextView title;
@@ -56,16 +56,16 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        //绑定Support库工具栏
+        /* 绑定Support库工具栏 */
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         CollapsingToolbarLayout ctl = (CollapsingToolbarLayout) findViewById(R.id.detail_collapsing);
-        ctl.setExpandedTitleColor(0x00ffffff);
+        ctl.setExpandedTitleColor(0x00ffffff); //隐藏CollapsingToolBar展开的的文字
         setSupportActionBar(toolbar);
-        //ActionBar 添加返回键
+        /* ActionBar 添加返回键 */
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
-        //获取内容信息
-        dao = new BooksDao(this);
+        /* 获取内容信息 */
+        dao = new BookListDao(this);
         Book book = getIntent().getParcelableExtra("book_info");
         if (book != null) {
             initView();
@@ -142,7 +142,7 @@ public class DetailActivity extends AppCompatActivity {
         protected BookDetail doInBackground(Book... books) {
             Book book = books[0];
             //从小说源网站加载内容
-            BookProvider provider = ProviderUtil.Builder(ProviderUtil.PROVIDER_52BIQUGE).getBookProvider(book.getBookPath());
+            BookProvider provider = ProviderUtil.Builder(ProviderUtil.PROVIDER_8DUSHU).getBookProvider(book.getBookPath());
             BookDetail detail = new BookDetail();
             if (provider != null) {
                 //书籍详情，章节信息,封面图
@@ -150,7 +150,6 @@ public class DetailActivity extends AppCompatActivity {
                 detail.setBookInfo(provider.getBookInfo());
                 book.setImagePath(provider.getBookImagePath());
                 detail.setBook(book);
-                //缓存封面图
                 Log.i("image_cache", provider.getBookImagePath());
                 FileCacheUtil.getFileByURL(DetailActivity.this, provider.getBookImagePath());
             }
@@ -178,15 +177,13 @@ public class DetailActivity extends AppCompatActivity {
             listView.setAdapter(new ArrayAdapter<>(
                     DetailActivity.this,
                         R.layout.chapter_item_detail,
-                            getChaterLastItem(list, CHAPTER_LATELY)));
+                            getChapterLastItem(list, CHAPTER_LATELY)));
 
-
-            final BookDetail detail_list = detail;
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    detail_list.setReadProgress(detail_list.getChapterList().size() - position - 1);
-                    startReadActivity(detail_list);
+                    bookDetail.setReadProgress(bookDetail.getChapterList().size() - position - 1);
+                    startReadActivity(bookDetail);
                 }
             });
             //加载添加到书架，开始阅读，继续阅读等按钮状态
@@ -194,7 +191,7 @@ public class DetailActivity extends AppCompatActivity {
             //显示隐藏内容
             progressBar.setVisibility(View.GONE);
             view.setVisibility(View.VISIBLE);
-            //首先隐藏再显示以防止listview加载内容时获得焦点
+            //首先隐藏再显示以防止listView加载内容时获得焦点
             listView.setVisibility(View.VISIBLE);
         }
     }
@@ -206,7 +203,7 @@ public class DetailActivity extends AppCompatActivity {
      * @param length 截取长度
      * @return 你懂的
      */
-    private ChapterList getChaterLastItem(ChapterList chapterList, int length) {
+    private ChapterList getChapterLastItem(ChapterList chapterList, int length) {
         ChapterList temp = new ChapterList();
         if (chapterList != null) {
             int index = chapterList.size() - 1;
@@ -250,4 +247,11 @@ public class DetailActivity extends AppCompatActivity {
         intent.putExtra("chapter_index", bookDetail.getReadProgress());
         startActivity(intent);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dao.close();
+    }
+
 }

@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eae5e0"
-    android:fitsSystemWindows="true"
+    android:background="@color/colorRead"
     tools:context="com.zhang.readme.view.ReadActivity">
 
     <include

@@ -48,7 +48,7 @@ public class ProviderUtil {
 
     public SearchProvider getSearchProvider(String title) {
         switch (providerID) {
-            case PROVIDER_8DUSHU: return new SearchProvider_8DuShu();
+            case PROVIDER_8DUSHU: return new SearchProvider_8DuShu(title);
         }
         return null;
     }

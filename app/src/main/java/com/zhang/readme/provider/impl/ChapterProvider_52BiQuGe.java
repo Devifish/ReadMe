@@ -5,10 +5,12 @@ import com.zhang.readme.provider.ChapterProvider;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 /**
  * Created by zhang on 2017/3/26.
+ *
+ * 章节内容提供源 (52笔趣阁)
+ * 来自 http://www.52biquge.com/
  */
 
 public class ChapterProvider_52BiQuGe extends BaseProvider implements ChapterProvider {

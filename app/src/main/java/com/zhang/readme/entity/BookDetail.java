@@ -1,7 +1,4 @@
-package com.zhang.readme.model;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.zhang.readme.entity;
 
 /**
  * Created by zhang on 2017/3/13.

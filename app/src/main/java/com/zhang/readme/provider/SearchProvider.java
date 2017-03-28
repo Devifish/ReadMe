@@ -1,6 +1,6 @@
 package com.zhang.readme.provider;
 
-import com.zhang.readme.model.BookList;
+import com.zhang.readme.entity.BookList;
 
 /**
  * Created by zhang on 2017/3/23.
@@ -10,6 +10,6 @@ import com.zhang.readme.model.BookList;
 
 public interface SearchProvider {
 
-    public BookList getSearchResult(String text);
+    public BookList getSearchResult();
 
 }
