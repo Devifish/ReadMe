@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="182dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="10dp"
@@ -33,7 +34,7 @@
                 android:layout_weight="1.5"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
-                />
+                tools:text="@string/book_title"/>
 
             <TextView
                 android:id="@+id/book_author"
@@ -42,7 +43,7 @@
                 android:layout_weight="1"
                 android:textSize="12sp"
                 android:gravity="bottom"
-                />
+                tools:text="@string/book_author"/>
         </LinearLayout>
     </LinearLayout>
 

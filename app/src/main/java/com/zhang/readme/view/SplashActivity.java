@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.zhang.readme.R;
@@ -12,7 +13,7 @@ import com.zhang.readme.R;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
 
     SplashHandler splashhandler;
     Handler x;

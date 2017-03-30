@@ -57,11 +57,11 @@ public class BookListDao extends DatabaseOpen{
         }
     }
 
-    public boolean delete(int id) {
+    public boolean delete(Book book) {
         SQLiteDatabase db = super.getReadableDatabase();
-        db.delete(TABLE_NAME, "id=?", new String[] {id+""});
+        int i = db.delete(TABLE_NAME, "title=? and author=?", new String[] {book.getTitle(), book.getAuthor()});
         db.close();
-        return true;
+        return i == 1;
     }
 
     public boolean exists(Book book) {

@@ -20,7 +20,7 @@ import com.zhang.readme.entity.BookList;
 import com.zhang.readme.entity.Book;
 import com.zhang.readme.view.DetailActivity;
 import com.zhang.readme.view.adapter.BookListRecyclerViewAdapter;
-import com.zhang.readme.view.fragment.base.MainPageFragmentBase;
+import com.zhang.readme.view.base.MainPageFragmentBase;
 
 /**
  * Created by zhang on 2017/2/22.

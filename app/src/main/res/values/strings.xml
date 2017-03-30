@@ -6,12 +6,14 @@
     <string name="community">社区</string>
 
     <string name="book_detail">书籍详情</string>
-    <string name="add_book">加入书架</string>
+    <string name="book_add">加入书架</string>
     <string name="book_start">开始阅读</string>
     <string name="book_continue">继续阅读</string>
     <string name="book_del">移除本书</string>
-    <string name="author">作者：%s</string>
-    <string name="chapter_all">全部章节</string>
+    <string name="book_author">作者</string>
+    <string name="book_title">标题</string>
+    <string name="book_inif">书籍简介</string>
+    <string name="bool_chapter">全部章节</string>
 
     <string name="navigation_drawer_open">打开导航抽屉</string>
     <string name="navigation_drawer_close">关闭导航抽屉</string>

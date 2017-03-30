@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.zhang.readme.view.fragment.BookListPageFragment;
 import com.zhang.readme.view.fragment.BookClassPageFragment;
 import com.zhang.readme.view.fragment.CommunityPageFragment;
-import com.zhang.readme.view.fragment.base.MainPageFragmentBase;
+import com.zhang.readme.view.base.MainPageFragmentBase;
 
 import java.util.ArrayList;
 import java.util.List;

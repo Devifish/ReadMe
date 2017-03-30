@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zhang.readme.R;
-import com.zhang.readme.view.fragment.base.MainPageFragmentBase;
+import com.zhang.readme.view.base.MainPageFragmentBase;
 
 /**
  * Created by zhang on 2017/2/22.

@@ -1,4 +1,4 @@
-package com.zhang.readme.view.fragment.base;
+package com.zhang.readme.view.base;
 
 import android.support.v4.app.Fragment;
 

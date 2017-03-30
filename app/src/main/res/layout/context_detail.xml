@@ -30,7 +30,8 @@
             android:layout_toEndOf="@+id/detail_book_image"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:text="@string/book_title"/>
 
         <TextView
             android:id="@+id/detail_book_author"
@@ -39,7 +40,8 @@
             android:layout_marginTop="9dp"
             android:textSize="14sp"
             android:layout_below="@id/detail_book_title"
-            android:layout_alignStart="@id/detail_book_title"/>
+            android:layout_alignStart="@id/detail_book_title"
+            tools:text="@string/book_author"/>
 
         <Button
             android:id="@+id/detail_book_btn"
@@ -49,7 +51,7 @@
             android:layout_alignParentEnd="true"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/colorPrimary"
-            android:text="@string/add_book" />
+            android:text="@string/book_add" />
 
     </RelativeLayout>
 
@@ -68,7 +70,8 @@
         android:paddingRight="32dp"
         android:lineSpacingMultiplier="1.3"
         android:textColor="@android:color/black"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:text="@string/book_inif"/>
 
     <View
         android:layout_width="match_parent"
@@ -87,8 +90,7 @@
         <ListView
             android:id="@+id/detail_chapter_list"
             android:layout_width="match_parent"
-            android:layout_height="256dp"
-            android:visibility="gone"/>
+            android:layout_height="256dp"/>
 
         <TextView
             android:id="@+id/detail_chapterAll"
@@ -96,7 +98,7 @@
             android:layout_height="42dp"
             android:gravity="center"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="@string/chapter_all"
+            android:text="@string/bool_chapter"
             android:textColor="@color/colorAccent"/>
 
     </LinearLayout>

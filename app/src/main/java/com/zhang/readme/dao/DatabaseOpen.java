@@ -21,13 +21,21 @@ public class DatabaseOpen extends SQLiteOpenHelper {
                     "  image_path      VARCHAR(100)" +
                     ")";
 
+    private final static String USER_SQL = "CREATE TABLE user (" +
+                    "  id              INTEGER PRIMARY KEY NOT NULL," +
+                    "  user            VARCHAR(20)         NOT NULL," +
+                    "  cookie          VARCHAR(100)        NOT NULL," +
+                    "  image_path      VARCHAR(100)" +
+                    ")";
+
     DatabaseOpen(Context context) {
         super(context, NAME_DB, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(BOOKS_SQL);
+        db.execSQL(BOOKS_SQL); //书架书籍表
+        db.execSQL(USER_SQL); //用户信息表
         db.execSQL("insert into books(title, author, book_path, image_path) values ('一念永恒', '耳根', 'http://www.8dushu.com/xiaoshuo/69/69059/', '/data/user/0/com.zhang.readme/cache/69059s.jpg')");
         db.execSQL("insert into books(title, author, book_path, image_path) values ('圣虚', '辰东', 'http://www.8dushu.com/xiaoshuo/81/81637/', '/data/user/0/com.zhang.readme/cache/81637s.jpg')");
     }

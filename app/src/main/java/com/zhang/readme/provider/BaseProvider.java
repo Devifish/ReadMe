@@ -19,8 +19,6 @@ public abstract class BaseProvider {
         try {
             return Jsoup.connect(url)
                     .timeout(5000)
-                    .header("Content-Type","text/html;charset=utf-8")
-                    .postDataCharset("utf-8")
                     .userAgent(USER_AGENT)
                     .get();
         } catch (IOException e) {
