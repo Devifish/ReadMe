@@ -1,10 +1,19 @@
 # 读我吧ReadMe
 
-> 使用 Google Meterial Design 设计的Android App<br/>
-> 界面简约 清爽<br/>
-> 小说内容均来源于网络，使用开源项目 Jsoup 爬取<br/>
+> 一款遵循 Meterial Design 设计的Android App<br/>
+> 界面简约 清爽 给你不一样的阅读体验<br/>
+> 小说内容均来源于网络采集（使用开源项目 Jsoup 爬取）<br/>
+> 如果涉及版权问题，请联系zhang961129@outlook.com
 > <br/>
-> 新手练手项目，实现逻辑略简单
+> 新手练手项目
+
+### 版本特点 ###
+1. Meterial Design UI
+2. 阅读本地与网络上的书籍
+
+### 截图（旧版本） ###
+![](screenshot/Screenshot_1.png) ![](screenshot/Screenshot_2.png) ![](screenshot/Screenshot_3.png)
+![](screenshot/Screenshot_4.png) 
 
 # License
 
