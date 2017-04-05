@@ -44,6 +44,6 @@ public class MainViewPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return pageLayouts.get(position).getTitle();
+        return pageLayouts.get(position).getPageTitle();
     }
 }

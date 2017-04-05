@@ -1,6 +1,5 @@
 package com.zhang.readme.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,8 +14,8 @@ import java.io.InputStream;
 
 public class SplashActivity extends AppCompatActivity {
 
-    SplashHandler splashhandler;
-    Handler x;
+    SplashHandler mSplashHandler;
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +34,22 @@ public class SplashActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        x = new Handler();
-        splashhandler = new SplashHandler();
+        handler = new Handler();
+        mSplashHandler = new SplashHandler();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(x != null && splashhandler != null){
-            x.removeCallbacks(splashhandler);
+        if(handler != null && mSplashHandler != null){
+            handler.removeCallbacks(mSplashHandler);
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        x.postDelayed(splashhandler, 1000);
+        handler.postDelayed(mSplashHandler, 1000);
     }
 
     private class SplashHandler implements Runnable{

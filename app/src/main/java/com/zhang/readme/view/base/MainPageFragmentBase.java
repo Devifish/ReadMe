@@ -1,20 +1,18 @@
 package com.zhang.readme.view.base;
 
-import android.support.v4.app.Fragment;
-
 /**
  * Created by zhang on 2017/2/22.
  *
  *
  */
 
-public class MainPageFragmentBase extends Fragment {
+public abstract class MainPageFragmentBase extends BaseFragment {
 
-    private String title = "无标题";
+    private String mTitle = "无标题";
 
-    public String getTitle() {return this.title;}
+    public String getPageTitle() {return this.mTitle;}
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPageTitle(String title) {
+        this.mTitle = title;
     }
 }

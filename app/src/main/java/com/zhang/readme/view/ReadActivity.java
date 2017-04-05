@@ -1,8 +1,6 @@
 package com.zhang.readme.view;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -13,37 +11,39 @@ import com.zhang.readme.R;
 import com.zhang.readme.entity.Chapter;
 import com.zhang.readme.provider.ChapterProvider;
 import com.zhang.readme.util.ProviderUtil;
+import com.zhang.readme.view.base.BaseActivity;
 
 import java.util.ArrayList;
 
-public class ReadActivity extends AppCompatActivity {
+public class ReadActivity extends BaseActivity {
 
-    private ArrayList<Chapter> list;
-    private int index;
-    private TextView title;
-    private TextView text;
-    private ProgressBar progressBar;
-    private ScrollView scrollView;
+    private ArrayList<Chapter> mChapters;
+    private int mIndex;
+    private TextView mTitle;
+    private TextView mText;
+    private ProgressBar mProgressBar;
+    private ScrollView mScrollView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initView() {
         setContentView(R.layout.activity_read);
-        //获取内容信息
-        list = this.getIntent().getParcelableArrayListExtra("chapter_list");
-        index = this.getIntent().getIntExtra("chapter_index", -1);
-        initView();
-        new ChapterDataInit().execute(list.get(index).getUrl());
+        mTitle = (TextView) findViewById(R.id.read_title);
+        mText = (TextView) findViewById(R.id.read_text);
+        mProgressBar = (ProgressBar) findViewById(R.id.read_progressBar);
+        mScrollView = (ScrollView) findViewById(R.id.read_context_layout);
     }
 
-    /**
-     * 初始化View对象
-     */
-    private void initView() {
-        title = (TextView) findViewById(R.id.read_title);
-        text = (TextView) findViewById(R.id.read_text);
-        progressBar = (ProgressBar) findViewById(R.id.read_progressBar);
-        scrollView = (ScrollView) findViewById(R.id.read_context_layout);
+    @Override
+    protected void initViewState() {
+        mScrollView.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void initVar() {
+        mChapters = this.getIntent().getParcelableArrayListExtra("chapter_list");
+        mIndex = this.getIntent().getIntExtra("chapter_index", -1);
+        new ChapterDataInit().execute(mChapters.get(mIndex).getUrl());
     }
 
     private class ChapterDataInit extends AsyncTask<String, Integer, String> {
@@ -59,11 +59,11 @@ public class ReadActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            title.setText(list.get(index).getName());
-            text.setText(s);
+            mTitle.setText(mChapters.get(mIndex).getName());
+            mText.setText(s);
 
-            scrollView.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
+            mScrollView.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 }

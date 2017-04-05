@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="182dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="10dp"
+    android:layout_margin="5dp"
     android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout

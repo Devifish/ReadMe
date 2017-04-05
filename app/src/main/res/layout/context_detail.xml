@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context="com.zhang.readme.view.DetailActivity">
 
     <RelativeLayout
@@ -18,8 +18,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@color/colorAccent"
-            android:scaleType="fitXY"
-            android:contentDescription="@string/test" />
+            android:contentDescription="@string/test"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/detail_book_title"
@@ -29,19 +29,19 @@
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_toEndOf="@+id/detail_book_image"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:textSize="20sp"
-            tools:text="@string/book_title"/>
+            android:textStyle="bold"
+            tools:text="@string/book_title" />
 
         <TextView
             android:id="@+id/detail_book_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignStart="@id/detail_book_title"
+            android:layout_below="@id/detail_book_title"
             android:layout_marginTop="9dp"
             android:textSize="14sp"
-            android:layout_below="@id/detail_book_title"
-            android:layout_alignStart="@id/detail_book_title"
-            tools:text="@string/book_author"/>
+            tools:text="@string/book_author" />
 
         <Button
             android:id="@+id/detail_book_btn"
@@ -49,60 +49,57 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:textColor="@android:color/white"
             android:backgroundTint="@color/colorPrimary"
-            android:text="@string/book_add" />
+            android:text="@string/book_add"
+            android:textColor="@android:color/white" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#DDD"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="#DDD" />
 
     <TextView
         android:id="@+id/detail_book_info"
         android:layout_width="match_parent"
         android:layout_height="140dp"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.3"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:lineSpacingMultiplier="1.3"
         android:textColor="@android:color/black"
-        android:gravity="center"
-        tools:text="@string/book_inif"/>
+        tools:text="@string/book_inif" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#DDD"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="#DDD" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin">
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/detail_chapter_list"
             android:layout_width="match_parent"
-            android:layout_height="256dp"/>
+            android:layout_height="256dp" />
 
         <TextView
             android:id="@+id/detail_chapterAll"
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:gravity="center"
             android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
             android:text="@string/bool_chapter"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
-
-
-
 </LinearLayout>

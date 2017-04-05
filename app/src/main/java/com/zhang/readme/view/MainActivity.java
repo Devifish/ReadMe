@@ -2,7 +2,6 @@ package com.zhang.readme.view;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -12,15 +11,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
 
 import com.zhang.readme.R;
 import com.zhang.readme.view.adapter.MainViewPageAdapter;
+import com.zhang.readme.view.base.BaseActivity;
 
 /**
  * Created by zhang on 2017/1/16.
@@ -30,22 +28,35 @@ import com.zhang.readme.view.adapter.MainViewPageAdapter;
  * @author zhang
  */
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ViewPager viewPager;
-    private NavigationView navigationView;
+    private ViewPager mViewPager;
+    private NavigationView mNavigationView;
+    private FloatingActionButton mFab;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initView() {
         setContentView(R.layout.activity_main);
+
         /* 绑定Support库的Toolbar */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /* FloatActionButton功能逻辑 */
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        /* 初始化DrawerLayout */
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        /* View初始化 */
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mViewPager = (ViewPager) findViewById(R.id.main_viewpage);
+    }
+
+    @Override
+    protected void initViewState() {
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "滑动清除该信息", Snackbar.LENGTH_SHORT)
@@ -53,47 +64,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .show();
             }
         });
-
-        /* Navigation汉堡菜单加载 */
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        /* TabLayout与ViewPage加载 */
-        MainViewPageAdapter mainViewPageAdapter = new MainViewPageAdapter(this.getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.main_viewpage);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tab);
-
-        viewPager.setAdapter(mainViewPageAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        mNavigationView.setNavigationItemSelectedListener(this);
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 //当ViewPage 切换时 界面的展示逻辑
                 switch (position) {
                     case 0:
-                        fab.show();
-                        fab.setImageResource(R.drawable.ic_add);
-                        navigationView.setCheckedItem(R.id.nav_booklist);
+                        mFab.show();
+                        mFab.setImageResource(R.drawable.ic_add);
+                        mNavigationView.setCheckedItem(R.id.nav_booklist);
                         break;
                     case 1:
-                        fab.hide();
-                        navigationView.setCheckedItem(R.id.nav_bookclass);
+                        mFab.hide();
+                        mNavigationView.setCheckedItem(R.id.nav_bookclass);
                         break;
                     case 2:
-                        fab.show();
-                        fab.setImageResource(R.drawable.ic_edit);
-                        navigationView.setCheckedItem(R.id.nav_community);
+                        mFab.show();
+                        mFab.setImageResource(R.drawable.ic_edit);
+                        mNavigationView.setCheckedItem(R.id.nav_community);
                         break;
                     default: break;
                 }
             }
         });
-        tabLayout.setupWithViewPager(viewPager);
+
+        MainViewPageAdapter mainViewPageAdapter = new MainViewPageAdapter(this.getSupportFragmentManager());
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tab);
+        mViewPager.setAdapter(mainViewPageAdapter);
+        tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    protected void initVar() {
+
     }
 
     @Override
@@ -143,13 +148,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.nav_booklist:
-                viewPager.setCurrentItem(0);
+                mViewPager.setCurrentItem(0);
                 break;
             case R.id.nav_bookclass:
-                viewPager.setCurrentItem(1);
+                mViewPager.setCurrentItem(1);
                 break;
             case R.id.nav_community:
-                viewPager.setCurrentItem(2);
+                mViewPager.setCurrentItem(2);
                 break;
             case R.id.nav_setting:
                 break;

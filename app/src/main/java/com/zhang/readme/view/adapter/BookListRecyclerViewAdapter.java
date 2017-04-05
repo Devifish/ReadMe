@@ -62,6 +62,9 @@ public class BookListRecyclerViewAdapter extends RecyclerView.Adapter {
         return bookList.size();
     }
 
+    /**
+     * List item点击事件接口
+     */
     public interface OnRecyclerViewItemClickListener{
         void onClick(View v, Book book, int position);
         void onLongClick(View v, Book book, int position);

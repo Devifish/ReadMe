@@ -2,16 +2,12 @@ package com.zhang.readme.view.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zhang.readme.R;
@@ -28,60 +24,57 @@ import com.zhang.readme.view.base.MainPageFragmentBase;
  * @author zhang
  */
 
-public class BookListPageFragment extends MainPageFragmentBase {
+public class BookListPageFragment extends MainPageFragmentBase implements SwipeRefreshLayout.OnRefreshListener {
 
-    private final static String title = "书架";
+    private final static String mTitle = "书架";
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private BookListRecyclerViewAdapter recyclerViewAdapter;
-    private BookListDao bookDao;
-    private BookList bookList;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private BookListRecyclerViewAdapter mRecyclerViewAdapter;
+    private RecyclerView mRecyclerView;
+    private BookListDao mBookDao;
+    private BookList mBookList;
 
-    public BookListPageFragment() {super.setTitle(title);}
-    
-    @Nullable
+    public BookListPageFragment() {
+        super.setPageTitle(mTitle);
+        super.setContentView(R.layout.page_booklist_main);
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.page_booklist_main, container, false);
-        bookDao = new BookListDao(this.getContext());
-        bookList = bookDao.getBookList();
-        bookDao.close();
+    protected void initView(View view) {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.page_booklist_swiperefesh);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.page_booklist_recycler);
+    }
 
-        //下拉刷新加载
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.page_booklist_swiperefesh);
-        swipeRefreshLayout.setColorSchemeResources(
+    @Override
+    protected void initViewState() {
+        mSwipeRefreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light
         );
-        swipeRefreshLayout.setOnRefreshListener(new BookListPageRefreshListener());
-
-        //RecyclerView加载
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.page_booklist_recycler);
-        recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
-        recyclerViewAdapter = new BookListRecyclerViewAdapter(this.getContext(), bookList);
-        recyclerViewAdapter.setOnItemClickListener(new RecyclerViewItemClickListener());
-        recyclerView.setAdapter(recyclerViewAdapter);
-        return view;
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
+        mRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewItemClickListener());
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
-    /**
-     * 下拉刷新监听器
-     * 实现书架page页下拉刷新及同步逻辑
-     */
-    private class BookListPageRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
+    @Override
+    protected void initVar() {
+        mBookDao = new BookListDao(this.getContext());
+        mBookList = mBookDao.getBookList();
+        mRecyclerViewAdapter = new BookListRecyclerViewAdapter(this.getContext(), mBookList);
+    }
 
-        @Override
-        public void onRefresh() {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    swipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(getContext(), "更新成功", Toast.LENGTH_SHORT).show();
-                }
-            }, 2000);
-        }
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(getContext(), "更新成功", Toast.LENGTH_SHORT).show();
+            }
+        }, 2000);
     }
 
     /**
@@ -110,8 +103,8 @@ public class BookListPageFragment extends MainPageFragmentBase {
                         case 1: //缓存到本地
                             break;
                         case 2: //移出书架
-                            bookList.remove(position);
-                            recyclerViewAdapter.notifyItemRemoved(position);
+                            mBookList.remove(position);
+                            mRecyclerViewAdapter.notifyItemRemoved(position);
                             break;
                         default: break;
                     }
@@ -124,6 +117,6 @@ public class BookListPageFragment extends MainPageFragmentBase {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        bookDao.close();
+        mBookDao.close();
     }
 }

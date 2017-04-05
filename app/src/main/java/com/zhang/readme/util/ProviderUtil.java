@@ -20,13 +20,16 @@ public class ProviderUtil {
     public static final int PROVIDER_8DUSHU = 0;
     public static final int PROVIDER_52BIQUGE = 1;
 
-    private static int providerID;
+    private static int providerID = -1;
 
-    private static final ProviderUtil util = new ProviderUtil();
+    private static ProviderUtil util;
     private ProviderUtil() {}
 
     public static ProviderUtil Builder(int id) {
         providerID = id;
+        if (util == null) {
+            util = new ProviderUtil();
+        }
         return util;
     }
 
