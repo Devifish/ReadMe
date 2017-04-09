@@ -16,7 +16,7 @@ import com.zhang.readme.entity.BookList;
 import com.zhang.readme.entity.Book;
 import com.zhang.readme.view.DetailActivity;
 import com.zhang.readme.view.adapter.BookListRecyclerViewAdapter;
-import com.zhang.readme.view.base.MainPageFragmentBase;
+import com.zhang.readme.view.base.BaseMainPageFragment;
 
 /**
  * Created by zhang on 2017/2/22.
@@ -24,7 +24,7 @@ import com.zhang.readme.view.base.MainPageFragmentBase;
  * @author zhang
  */
 
-public class BookListPageFragment extends MainPageFragmentBase implements SwipeRefreshLayout.OnRefreshListener {
+public class BookListPageFragment extends BaseMainPageFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private final static String mTitle = "书架";
 
@@ -81,7 +81,7 @@ public class BookListPageFragment extends MainPageFragmentBase implements SwipeR
      * RecyclerView Item 点击事件（点击/长按）
      * 实现书架item 项目逻辑
      */
-    private class RecyclerViewItemClickListener implements BookListRecyclerViewAdapter.OnRecyclerViewItemClickListener {
+    private class RecyclerViewItemClickListener implements BookListRecyclerViewAdapter.OnItemClickListener {
 
         @Override
         public void onClick(View v, Book book, int position) {

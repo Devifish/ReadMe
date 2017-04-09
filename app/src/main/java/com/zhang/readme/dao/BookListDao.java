@@ -16,7 +16,9 @@ public class BookListDao extends DatabaseOpen{
 
     private final static String TABLE_NAME = "books";
 
-    public BookListDao(Context context) {super(context);}
+    public BookListDao(Context context) {
+        super(context);
+    }
 
     public BookList getBookList() {
         BookList bookList = new BookList();
@@ -78,4 +80,5 @@ public class BookListDao extends DatabaseOpen{
             return false;
         }
     }
+
 }

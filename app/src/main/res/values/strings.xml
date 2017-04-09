@@ -12,8 +12,15 @@
     <string name="book_del">移除本书</string>
     <string name="book_author">作者</string>
     <string name="book_title">标题</string>
-    <string name="book_inif">书籍简介</string>
-    <string name="bool_chapter">全部章节</string>
+    <string name="book_info">书籍简介</string>
+    <string name="book_chapter">章节列表</string>
+    <string name="book_lastRead">上次阅读：</string>
+    <string name="book_updateInfo">状态</string>
+    <string name="book_chapterLength">章节数</string>
+    <string name="book_updateTime">更新时间</string>
+    <string name="book_noRead">还未开始阅读</string>
+
+    <string name="read_load_context">正在加载下一章</string>
 
     <string name="navigation_drawer_open">打开导航抽屉</string>
     <string name="navigation_drawer_close">关闭导航抽屉</string>

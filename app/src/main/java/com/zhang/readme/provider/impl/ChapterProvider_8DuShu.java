@@ -36,7 +36,6 @@ public class ChapterProvider_8DuShu extends BaseProvider implements ChapterProvi
 
     @Override
     public String formatChapterText(String text) {
-        System.out.println(text);
         text = text.replaceAll("<br> &nbsp;&nbsp;&nbsp;&nbsp;", "    ");
         text = text.replaceAll("<br>", "");
         text = text.replaceAll("&nbsp;", " ");

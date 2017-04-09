@@ -3,6 +3,8 @@
     <color name="colorPrimary">#00BCD4</color>
     <color name="colorPrimaryDark">#00BCD4</color>
     <color name="colorAccent">#00BCD4</color>
+    
+    <color name="split_line">#E6E6E6</color>
 
     <color name="colorRead">#eae5e0</color>
 </resources>

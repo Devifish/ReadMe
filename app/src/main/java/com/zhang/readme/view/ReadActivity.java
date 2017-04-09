@@ -1,49 +1,73 @@
 package com.zhang.readme.view;
 
 import android.os.AsyncTask;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.zhang.readme.R;
-import com.zhang.readme.entity.Chapter;
+import com.zhang.readme.entity.BookContext;
+import com.zhang.readme.entity.BookDetail;
 import com.zhang.readme.provider.ChapterProvider;
 import com.zhang.readme.util.ProviderUtil;
+import com.zhang.readme.view.adapter.BookContextRecyclerViewAdapter;
 import com.zhang.readme.view.base.BaseActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReadActivity extends BaseActivity {
 
-    private ArrayList<Chapter> mChapters;
-    private int mIndex;
-    private TextView mTitle;
-    private TextView mText;
+    private boolean mLoad = false;
+    private BookDetail mBookDetail;
+    private List<BookContext> mBookContextList;
+    private BookContextRecyclerViewAdapter mRecyclerViewAdapter;
+
     private ProgressBar mProgressBar;
-    private ScrollView mScrollView;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_read);
-        mTitle = (TextView) findViewById(R.id.read_title);
-        mText = (TextView) findViewById(R.id.read_text);
+
         mProgressBar = (ProgressBar) findViewById(R.id.read_progressBar);
-        mScrollView = (ScrollView) findViewById(R.id.read_context_layout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.read_context_recyclerView);
     }
 
     @Override
     protected void initViewState() {
-        mScrollView.setVisibility(View.INVISIBLE);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        mRecyclerView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (!mRecyclerView.canScrollVertically(1) && !mLoad) {
+
+                    Log.i("ContextOnload", mBookContextList.size() +"--"+ mRecyclerViewAdapter.getItemCount());
+                    mBookDetail.setBookmarkIndex(mBookDetail.getBookmarkIndex() + 1);
+                    new ChapterDataInit().execute(mBookDetail.getChapterList().get(mBookDetail.getBookmarkIndex()).getUrl());
+
+                }
+            }
+        });
     }
 
     @Override
     protected void initVar() {
-        mChapters = this.getIntent().getParcelableArrayListExtra("chapter_list");
-        mIndex = this.getIntent().getIntExtra("chapter_index", -1);
-        new ChapterDataInit().execute(mChapters.get(mIndex).getUrl());
+        mBookContextList = new ArrayList<>();
+        mBookDetail = this.getIntent().getParcelableExtra("chapter_detail");
+        new ChapterDataInit().execute(mBookDetail.getChapterList().get(mBookDetail.getBookmarkIndex()).getUrl());
     }
 
     private class ChapterDataInit extends AsyncTask<String, Integer, String> {
@@ -51,6 +75,7 @@ public class ReadActivity extends BaseActivity {
         @Override
         protected String doInBackground(String... strings) {
             Log.i("text_path", strings[0]);
+            mLoad = true;
             ChapterProvider provider = ProviderUtil.Builder(ProviderUtil.PROVIDER_8DUSHU).getChapterProvider(strings[0]);
             return provider.getBookChapterText();
         }
@@ -58,11 +83,20 @@ public class ReadActivity extends BaseActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            mLoad = false;
+            BookContext bookContext = new BookContext();
+            bookContext.setTitle(mBookDetail.getChapterList().get(mBookDetail.getBookmarkIndex()).getName());
+            bookContext.setText(s);
+            mBookContextList.add(bookContext);
 
-            mTitle.setText(mChapters.get(mIndex).getName());
-            mText.setText(s);
+            if (mRecyclerViewAdapter == null) {
+                mRecyclerViewAdapter = new BookContextRecyclerViewAdapter(ReadActivity.this, mBookContextList);
+                mRecyclerView.setAdapter(mRecyclerViewAdapter);
+            }else {
+                mRecyclerViewAdapter.notifyItemChanged(mRecyclerViewAdapter.getItemCount()-1);
+            }
 
-            mScrollView.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
             mProgressBar.setVisibility(View.GONE);
         }
     }

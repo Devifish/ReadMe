@@ -3,7 +3,7 @@ package com.zhang.readme.view.fragment;
 import android.view.View;
 
 import com.zhang.readme.R;
-import com.zhang.readme.view.base.MainPageFragmentBase;
+import com.zhang.readme.view.base.BaseMainPageFragment;
 
 /**
  * Created by zhang on 2017/2/22.
@@ -11,7 +11,7 @@ import com.zhang.readme.view.base.MainPageFragmentBase;
  * @author zhang
  */
 
-public class BookClassPageFragment extends MainPageFragmentBase {
+public class BookClassPageFragment extends BaseMainPageFragment {
 
     private final static String mTitle = "分类";
 

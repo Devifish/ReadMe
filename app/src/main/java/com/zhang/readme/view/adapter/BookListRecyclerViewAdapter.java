@@ -20,38 +20,38 @@ import com.zhang.readme.entity.Book;
  * @author zhang
  */
 
-public class BookListRecyclerViewAdapter extends RecyclerView.Adapter {
+public class BookListRecyclerViewAdapter extends RecyclerView.Adapter<BookListRecyclerViewAdapter.BookListViewHolder> {
 
-    private Context context;
-    private BookList bookList;
-    private OnRecyclerViewItemClickListener listener;
+    private Context mContext;
+    private BookList mBookList;
+    private OnItemClickListener mItemClickListener;
 
     public BookListRecyclerViewAdapter(Context context, BookList bookList) {
-        this.context = context;
-        this.bookList = bookList;
+        this.mContext = context;
+        this.mBookList = bookList;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.book_item_booklist, parent, false);
+    public BookListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.book_item_booklist, parent, false);
         return new BookListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final Book book = bookList.get(position);
+    public void onBindViewHolder(BookListViewHolder holder, int position) {
+        final Book book = mBookList.get(position);
         final int index = position;
-        ((BookListViewHolder)holder).setInfo(book);
+        holder.setData(book);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(v, book, index);
+                mItemClickListener.onClick(v, book, index);
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                listener.onLongClick(v, book, index);
+                mItemClickListener.onLongClick(v, book, index);
                 return false;
             }
         });
@@ -59,22 +59,22 @@ public class BookListRecyclerViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return bookList.size();
+        return mBookList.size();
     }
 
     /**
      * List item点击事件接口
      */
-    public interface OnRecyclerViewItemClickListener{
+    public interface OnItemClickListener {
         void onClick(View v, Book book, int position);
         void onLongClick(View v, Book book, int position);
     }
 
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
-        this.listener = listener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mItemClickListener = listener;
     }
 
-    private static class BookListViewHolder extends RecyclerView.ViewHolder {
+    static class BookListViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView image;
         private TextView title;
@@ -88,7 +88,7 @@ public class BookListRecyclerViewAdapter extends RecyclerView.Adapter {
             author = (TextView) itemView.findViewById(R.id.book_author);
         }
 
-        private void setInfo(Book book) {
+        private void setData(Book book) {
             if (book != null) {
                 title.setText(book.getTitle());
                 author.setText(book.getAuthor());

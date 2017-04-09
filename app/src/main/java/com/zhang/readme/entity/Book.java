@@ -68,8 +68,14 @@ public class Book implements Parcelable {
     }
 
     @Override
-    public int hashCode() {
-        return title.hashCode() + author.hashCode();
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", bookPath='" + bookPath + '\'' +
+                '}';
     }
 
     @Override

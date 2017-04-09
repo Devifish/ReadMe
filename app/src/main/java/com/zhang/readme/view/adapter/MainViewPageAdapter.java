@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.zhang.readme.view.fragment.BookListPageFragment;
 import com.zhang.readme.view.fragment.BookClassPageFragment;
 import com.zhang.readme.view.fragment.CommunityPageFragment;
-import com.zhang.readme.view.base.MainPageFragmentBase;
+import com.zhang.readme.view.base.BaseMainPageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,28 +22,28 @@ import java.util.List;
 
 public class MainViewPageAdapter extends FragmentPagerAdapter {
 
-    private List<MainPageFragmentBase> pageLayouts;
+    private List<BaseMainPageFragment> mPageLayouts;
 
     public MainViewPageAdapter(FragmentManager fm) {
         super(fm);
-        pageLayouts = new ArrayList<>();
-        pageLayouts.add(new BookListPageFragment());
-        pageLayouts.add(new BookClassPageFragment());
-        pageLayouts.add(new CommunityPageFragment());
+        mPageLayouts = new ArrayList<>();
+        mPageLayouts.add(new BookListPageFragment());
+        mPageLayouts.add(new BookClassPageFragment());
+        mPageLayouts.add(new CommunityPageFragment());
     }
 
     @Override
     public Fragment getItem(int position) {
-        return pageLayouts.get(position);
+        return mPageLayouts.get(position);
     }
 
     @Override
     public int getCount() {
-        return pageLayouts.size();
+        return mPageLayouts.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return pageLayouts.get(position).getPageTitle();
+        return mPageLayouts.get(position).getPageTitle();
     }
 }
