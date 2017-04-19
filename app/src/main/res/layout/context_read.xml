@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/activity_vertical_margin">
+    android:padding="@dimen/activity_vertical_margin"
+    tools:context="com.zhang.readme.view.ReadActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
     <TextView
         android:id="@+id/read_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:lineSpacingMultiplier="1.5"
         android:textColor="#444"
         android:textSize="18sp"

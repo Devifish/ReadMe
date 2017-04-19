@@ -64,4 +64,14 @@ public class BookProvider_52BiQuGe extends BaseProvider implements BookProvider 
         }
         return null;
     }
+
+    @Override
+    public String getUpdateInfo() {
+        return null;
+    }
+
+    @Override
+    public String getUpdateTime() {
+        return null;
+    }
 }

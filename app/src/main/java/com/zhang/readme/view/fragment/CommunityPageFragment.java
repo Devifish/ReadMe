@@ -15,23 +15,14 @@ public class CommunityPageFragment extends BaseMainPageFragment {
 
     private final static String mTitle = "社区";
 
-    public CommunityPageFragment() {
-        super.setPageTitle(mTitle);
-        super.setContentView(R.layout.page_community_main);
-    }
+    public CommunityPageFragment() {super.setPageTitle(mTitle);}
 
     @Override
-    protected void initView(View view) {
-
-    }
+    protected int bindLayout() {return R.layout.page_community_main;}
 
     @Override
-    protected void initViewState() {
-
-    }
+    protected void initVar() {}
 
     @Override
-    protected void initVar() {
-
-    }
+    protected void initView() {}
 }

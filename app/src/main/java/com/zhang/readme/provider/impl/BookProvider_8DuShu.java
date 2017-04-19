@@ -30,10 +30,10 @@ public class BookProvider_8DuShu extends BaseProvider implements BookProvider {
     public ChapterList getChapterList() {
         ChapterList list = new ChapterList();
         if (document != null) {
-            Element element = document.getElementsByClass("mulu").get(0);
-            Elements dl = element.getElementsByTag("ul");
-            Elements dd = dl.get(0).getElementsByTag("li");
-            for (Element ele : dd) {
+            Element mulu = document.getElementsByClass("mulu").get(0);
+            Elements ul = mulu.getElementsByTag("ul");
+            Elements li = ul.get(0).getElementsByTag("li");
+            for (Element ele : li) {
                 Elements temp = ele.getElementsByTag("a");
                 if (!temp.isEmpty()) {
                     Chapter chapter = new Chapter();
@@ -49,8 +49,8 @@ public class BookProvider_8DuShu extends BaseProvider implements BookProvider {
     @Override
     public String getBookInfo() {
         if (document != null) {
-            Element element = document.getElementsByClass("intro").get(0);
-            return element.text();
+            Element intro = document.getElementsByClass("intro").get(0);
+            return intro.text();
         }else return null;
     }
 
@@ -58,12 +58,22 @@ public class BookProvider_8DuShu extends BaseProvider implements BookProvider {
     public String getBookImagePath() {
         if (document != null) {
             Element jieshao = document.getElementsByClass("jieshao").get(0);
-            Element element = jieshao.getElementsByClass("lf").get(0);
-            Elements img_tag = element.getElementsByTag("img");
-            if (!img_tag.isEmpty()) {
-                return img_tag.attr("src");
+            Element lf = jieshao.getElementsByClass("lf").get(0);
+            Elements img = lf.getElementsByTag("img");
+            if (!img.isEmpty()) {
+                return img.attr("src");
             }
         }
+        return null;
+    }
+
+    @Override
+    public String getUpdateInfo() {
+        return null;
+    }
+
+    @Override
+    public String getUpdateTime() {
         return null;
     }
 

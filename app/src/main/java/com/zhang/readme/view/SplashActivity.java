@@ -22,12 +22,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        //加载Splah图片
+        //加载Splash图片
         ImageView image = (ImageView) findViewById(R.id.splash_img);
         try {
             InputStream is = getAssets().open("splash_launcher.png");
-            Drawable splash = Drawable.createFromStream(is, "splash");
-            image.setImageDrawable(splash);
+            image.setImageDrawable(Drawable.createFromStream(is, "splash"));
 
             is.close();
         } catch (IOException e) {

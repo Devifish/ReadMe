@@ -1,5 +1,4 @@
 <resources>
-
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -24,5 +23,4 @@
     <style name="EditText_Style">
         <item name="colorAccent">@android:color/white</item>
     </style>
-
 </resources>

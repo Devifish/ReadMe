@@ -18,6 +18,8 @@ import com.zhang.readme.view.base.BaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 public class ReadActivity extends BaseActivity {
 
     private boolean mLoad = false;
@@ -25,19 +27,14 @@ public class ReadActivity extends BaseActivity {
     private List<BookContext> mBookContextList;
     private BookContextRecyclerViewAdapter mRecyclerViewAdapter;
 
-    private ProgressBar mProgressBar;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.read_progressBar) ProgressBar mProgressBar;
+    @BindView(R.id.read_context_recyclerView) RecyclerView mRecyclerView;
+
+    @Override
+    protected int bindLayout() {return R.layout.activity_read;}
 
     @Override
     protected void initView() {
-        setContentView(R.layout.activity_read);
-
-        mProgressBar = (ProgressBar) findViewById(R.id.read_progressBar);
-        mRecyclerView = (RecyclerView) findViewById(R.id.read_context_recyclerView);
-    }
-
-    @Override
-    protected void initViewState() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         mRecyclerView.setVisibility(View.INVISIBLE);

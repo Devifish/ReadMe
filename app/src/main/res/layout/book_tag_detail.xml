@@ -21,9 +21,31 @@
             android:textColor="@android:color/black"/>
 
         <TextView
+            android:id="@+id/updateInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="连载中"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/book_updateTime"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/updateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2016-12-12"/>
 
     </LinearLayout>
 
@@ -41,30 +63,10 @@
             android:textColor="@android:color/black"/>
 
         <TextView
-            android:id="@+id/detail_chapterLength"
+            android:id="@+id/chapterLength"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="10086章"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/book_updateTime"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/detail_updateTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2016-12-12"/>
 
     </LinearLayout>
 

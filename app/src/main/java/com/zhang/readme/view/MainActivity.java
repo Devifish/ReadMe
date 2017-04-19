@@ -12,13 +12,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.zhang.readme.R;
 import com.zhang.readme.view.adapter.MainViewPageAdapter;
 import com.zhang.readme.view.base.BaseActivity;
+
+import butterknife.BindView;
 
 /**
  * Created by zhang on 2017/1/16.
@@ -30,40 +31,38 @@ import com.zhang.readme.view.base.BaseActivity;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ViewPager mViewPager;
-    private NavigationView mNavigationView;
-    private FloatingActionButton mFab;
+    private MainViewPageAdapter mMainViewPageAdapter;
+
+    @BindView(R.id.viewPage) ViewPager mViewPager;
+    @BindView(R.id.nav) NavigationView mNavigationView;
+    @BindView(R.id.fab) FloatingActionButton mFab;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawer;
 
     @Override
-    protected void initView() {
-        setContentView(R.layout.activity_main);
+    protected int bindLayout() {return R.layout.activity_main;}
 
-        /* 绑定Support库的Toolbar */
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        /* 初始化DrawerLayout */
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        /* View初始化 */
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
-        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-        mViewPager = (ViewPager) findViewById(R.id.main_viewpage);
+    @Override
+    protected void initVar() {
+        mMainViewPageAdapter = new MainViewPageAdapter(this.getSupportFragmentManager());
     }
 
     @Override
-    protected void initViewState() {
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "滑动清除该信息", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null)
-                        .show();
-            }
-        });
+    protected void initView() {
+        setSupportActionBar(mToolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
+        mViewPager.setAdapter(mMainViewPageAdapter);
+        tabLayout.setupWithViewPager(mViewPager);
+
+        mFab.setOnClickListener(view -> Snackbar.make(view, "滑动清除该信息", Snackbar.LENGTH_SHORT)
+                .setAction("Action", null)
+                .show());
+
         mNavigationView.setNavigationItemSelectedListener(this);
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -89,23 +88,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 }
             }
         });
-
-        MainViewPageAdapter mainViewPageAdapter = new MainViewPageAdapter(this.getSupportFragmentManager());
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tab);
-        mViewPager.setAdapter(mainViewPageAdapter);
-        tabLayout.setupWithViewPager(mViewPager);
-    }
-
-    @Override
-    protected void initVar() {
-
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }

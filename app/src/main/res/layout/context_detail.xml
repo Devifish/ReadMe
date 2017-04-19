@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.zhang.readme.view.DetailActivity">
 
@@ -13,7 +12,7 @@
         android:padding="@dimen/activity_horizontal_margin">
 
         <ImageView
-            android:id="@+id/detail_book_image"
+            android:id="@+id/book_image"
             android:layout_width="95dp"
             android:layout_height="125dp"
             android:layout_alignParentStart="true"
@@ -23,29 +22,29 @@
             android:scaleType="fitXY" />
 
         <TextView
-            android:id="@+id/detail_book_title"
+            android:id="@+id/book_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_toEndOf="@+id/detail_book_image"
+            android:layout_toEndOf="@+id/book_image"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:text="@string/book_title" />
 
         <TextView
-            android:id="@+id/detail_book_author"
+            android:id="@+id/book_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/detail_book_title"
-            android:layout_below="@id/detail_book_title"
+            android:layout_alignStart="@id/book_title"
+            android:layout_below="@id/book_title"
             android:layout_marginTop="9dp"
             android:textSize="14sp"
             tools:text="@string/book_author" />
 
         <Button
-            android:id="@+id/detail_book_btn"
+            android:id="@+id/book_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -76,7 +75,7 @@
             android:text="@string/book_lastRead"/>
 
         <TextView
-            android:id="@+id/detail_lastRead"
+            android:id="@+id/lastRead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -92,7 +91,7 @@
         android:background="@color/split_line" />
 
     <TextView
-        android:id="@+id/detail_book_info"
+        android:id="@+id/book_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -135,7 +134,7 @@
                 android:layout_alignParentStart="true"/>
 
             <Button
-                android:id="@+id/detail_chapterAll"
+                android:id="@+id/chapterAll"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -147,7 +146,7 @@
         </RelativeLayout>
 
         <ListView
-            android:id="@+id/detail_chapter_list"
+            android:id="@+id/chapter_list"
             android:layout_width="match_parent"
             android:layout_height="512dp" />
 

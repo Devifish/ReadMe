@@ -6,20 +6,18 @@ import com.zhang.readme.R;
 import com.zhang.readme.util.Config;
 import com.zhang.readme.view.base.BaseActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class InfoActivity extends BaseActivity {
 
-    TextView mVersion;
+    @BindView(R.id.version) TextView mVersion;
+
+    @Override
+    protected int bindLayout() {return R.layout.activity_info;}
 
     @Override
     protected void initView() {
-        setContentView(R.layout.activity_info);
-
-        mVersion = (TextView) findViewById(R.id.info_version);
-
-    }
-
-    @Override
-    protected void initViewState() {
         mVersion.setText(String.format(mVersion.getText().toString(), Config.AppInfo.getVersionName(this)));
     }
 

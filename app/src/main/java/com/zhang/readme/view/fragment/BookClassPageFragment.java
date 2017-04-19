@@ -15,23 +15,14 @@ public class BookClassPageFragment extends BaseMainPageFragment {
 
     private final static String mTitle = "分类";
 
-    public BookClassPageFragment() {
-        super.setPageTitle(mTitle);
-        super.setContentView(R.layout.page_class_main);
-    }
+    public BookClassPageFragment() {super.setPageTitle(mTitle);}
 
     @Override
-    protected void initView(View view) {
-
-    }
+    protected int bindLayout() {return R.layout.page_class_main;}
 
     @Override
-    protected void initViewState() {
-
-    }
+    protected void initVar() {}
 
     @Override
-    protected void initVar() {
-
-    }
+    protected void initView() {}
 }

@@ -15,13 +15,13 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/search_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <SearchView
-                android:id="@+id/search_searchView"
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:queryHint="@string/search"
@@ -31,14 +31,14 @@
     </android.support.design.widget.AppBarLayout>
 
     <ProgressBar
-        android:id="@+id/search_progressBar"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone" />
 
     <ListView
-        android:id="@+id/search_list"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">

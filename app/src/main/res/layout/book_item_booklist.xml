@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/book_image"
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="128dp"
             android:scaleType="fitXY"
@@ -26,7 +26,7 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/book_title"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1.5"
@@ -35,7 +35,7 @@
                 tools:text="@string/book_title"/>
 
             <TextView
-                android:id="@+id/book_author"
+                android:id="@+id/author"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"

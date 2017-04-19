@@ -23,30 +23,25 @@ import com.zhang.readme.provider.SearchProvider;
 import com.zhang.readme.util.ProviderUtil;
 import com.zhang.readme.view.base.BaseActivity;
 
+import butterknife.BindView;
+
 public class SearchActivity extends BaseActivity {
 
-    private SearchView mSearchView;
-    private ListView mListView;
-    private ProgressBar mProgressBar;
+    @BindView(R.id.searchView) SearchView mSearchView;
+    @BindView(R.id.list) ListView mListView;
+    @BindView(R.id.progressBar) ProgressBar mProgressBar;
+
+    @Override
+    protected int bindLayout() {return R.layout.activity_search;}
 
     @Override
     protected void initView() {
-        setContentView(R.layout.activity_search);
-
         /* 绑定Support库的Toolbar */
-        Toolbar toolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
-        /* View初始化 */
-        mSearchView = (SearchView) findViewById(R.id.search_searchView);
-        mListView = (ListView) findViewById(R.id.search_list);
-        mProgressBar = (ProgressBar) findViewById(R.id.search_progressBar);
-    }
-
-    @Override
-    protected void initViewState() {
         mSearchView.onActionViewExpanded(); //设置搜索栏为展开状态
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -86,13 +81,10 @@ public class SearchActivity extends BaseActivity {
             }
             mProgressBar.setVisibility(View.GONE);
             mListView.setAdapter(new SearchListViewAdapter(bookList));
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
-                    intent.putExtra("book_info", bookList.get(position));
-                    startActivity(intent);
-                }
+            mListView.setOnItemClickListener((parent, view, position, id) -> {
+                Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
+                intent.putExtra("book_info", bookList.get(position));
+                startActivity(intent);
             });
         }
     }

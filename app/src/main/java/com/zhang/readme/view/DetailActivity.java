@@ -1,6 +1,5 @@
 package com.zhang.readme.view;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -12,13 +11,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +23,6 @@ import com.zhang.readme.R;
 import com.zhang.readme.dao.BookListDao;
 import com.zhang.readme.dao.BookmarkDao;
 import com.zhang.readme.entity.Book;
-import com.zhang.readme.entity.Bookmark;
 import com.zhang.readme.entity.Chapter;
 import com.zhang.readme.entity.BookDetail;
 import com.zhang.readme.provider.BookProvider;
@@ -34,34 +30,43 @@ import com.zhang.readme.util.ProviderUtil;
 import com.zhang.readme.util.FileCacheUtil;
 import com.zhang.readme.view.base.BaseActivity;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * Created by zhang on 2017/2/22.
+ *
+ * @author zhang
+ */
+
 public class DetailActivity extends BaseActivity {
 
-    /** 显示最近章节数的长度值 */
     private static final int CHAPTER_LATELY = 10;
-
     private BookListDao mBookListDao;
     private BookmarkDao mBookmarkDao;
     private Book mBook;
     private BookDetail mBookDetail;
 
-    private TextView mTitle;
-    private TextView mAuthor;
-    private ImageView mImage;
-    private Button mButton;
-    private TextView mLastRead;
-    private TextView mInfo;
-    private TextView mUpdateTime;
-    private TextView mChapterLength;
-    private ListView mListView;
-    private ProgressBar mProgressBar;
-    private Button mChapterAll;
-    private NestedScrollView mScrollView;
+    @BindView(R.id.book_title) TextView mTitle;
+    @BindView(R.id.book_author) TextView mAuthor;
+    @BindView(R.id.book_image) ImageView mImage;
+    @BindView(R.id.tools_image) ImageView mToolsImage;
+    @BindView(R.id.book_btn) Button mButton;
+    @BindView(R.id.lastRead) TextView mLastRead;
+    @BindView(R.id.book_info) TextView mInfo;
+    @BindView(R.id.updateTime) TextView mUpdateTime;
+    @BindView(R.id.chapterLength) TextView mChapterLength;
+    @BindView(R.id.chapter_list) ListView mListView;
+    @BindView(R.id.progress) ProgressBar mProgressBar;
+    @BindView(R.id.chapterAll) Button mChapterAll;
+    @BindView(R.id.scrollView) NestedScrollView mScrollView;
+
+    @Override
+    protected int bindLayout() {return R.layout.activity_detail;}
 
     @Override
     protected void initVar() {
@@ -78,78 +83,50 @@ public class DetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        setContentView(R.layout.activity_detail);
-
         /* 绑定Support库工具栏 */
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         /* ActionBar 添加返回键 */
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
-        /* View初始化 */
-        mTitle = (TextView) findViewById(R.id.detail_book_title);
-        mAuthor = (TextView) findViewById(R.id.detail_book_author);
-        mImage = (ImageView) findViewById(R.id.detail_book_image);
-        mInfo = (TextView) findViewById(R.id.detail_book_info);
-        mButton = (Button) findViewById(R.id.detail_book_btn);
-        mLastRead = (TextView) findViewById(R.id.detail_lastRead);
-        mChapterLength = (TextView) findViewById(R.id.detail_chapterLength);
-        mUpdateTime = (TextView) findViewById(R.id.detail_updateTime);
-        mChapterAll = (Button) findViewById(R.id.detail_chapterAll);
-        mListView = (ListView) findViewById(R.id.detail_chapter_list);
-        mProgressBar = (ProgressBar) findViewById(R.id.detail_book_progress);
-        mScrollView = (NestedScrollView) findViewById(R.id.detail_view);
-    }
-
-    @Override
-    protected void initViewState() {
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mBookDetail != null) {
-                    switch (mButton.getText().toString()) {
-                        case "加入书架":
-                            if (mBookListDao.insert(mBookDetail.getBook())) {
-                                mButton.setText(R.string.book_start);
-                                Toast.makeText(DetailActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
-                            }else {
-                                Toast.makeText(DetailActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
-                            }
-                            break;
-                        case "开始阅读":
-                        case "继续阅读":
-                            startReadActivity(mBookDetail);
-                            break;
-                        default: break;
-                    }
-                }
-            }
-        });
-
-        mChapterAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mBookDetail != null) {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(DetailActivity.this);
-                    dialog.setTitle(mBookDetail.getBook().getTitle());
-                    dialog.setItems(mBookDetail.getChapterNameArray(), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            BookDetail temp = mBookDetail;
-                            temp.setBookmarkIndex(temp.getChapterList().size() - which - 1);
-                            startReadActivity(temp);
-                        }
-                    });
-                    dialog.show();
-                }
-            }
-        });
-
         mScrollView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.book_btn) void onReadBook() {
+        if (mBookDetail != null) {
+            switch (mButton.getText().toString()) {
+                case "加入书架":
+                    if (mBookListDao.insert(mBookDetail.getBook())) {
+                        mButton.setText(R.string.book_start);
+                        Toast.makeText(DetailActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(DetailActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case "开始阅读":
+                case "继续阅读":
+                    startReadActivity(mBookDetail);
+                    break;
+                default: break;
+            }
+        }
+    }
+
+    @OnClick(R.id.chapterAll) void onShowChapterList() {
+        if (mBookDetail != null) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(DetailActivity.this);
+            dialog.setTitle(mBookDetail.getBook().getTitle());
+            dialog.setItems(mBookDetail.getChapterNameArray(), (dialog1, which) -> {
+                BookDetail temp = mBookDetail;
+                temp.setBookmarkIndex(temp.getChapterList().size() - which - 1);
+                startReadActivity(temp);
+            });
+            dialog.show();
+        }
     }
 
     @Override
@@ -223,7 +200,10 @@ public class DetailActivity extends BaseActivity {
             mTitle.setText(book.getTitle());
             mAuthor.setText(String.format("作者：%s", book.getAuthor()));
             File file = FileCacheUtil.getFileByURL(DetailActivity.this ,book.getImagePath());
-            mImage.setImageDrawable(Drawable.createFromPath(file.getAbsolutePath()));
+
+            Drawable image = Drawable.createFromPath(file.getAbsolutePath());
+            mImage.setImageDrawable(image);
+
             mInfo.setText(bookDetail.getBookInfo());
             if (bookDetail.getBookmarkIndex() != 0) mLastRead.setText(list.get(bookDetail.getBookmarkIndex()).getName());
             else mLastRead.setText(R.string.book_noRead);
@@ -242,12 +222,9 @@ public class DetailActivity extends BaseActivity {
                         R.layout.chapter_item_detail,
                             getChapterLastItem(list, CHAPTER_LATELY)));
 
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    mBookDetail.setBookmarkIndex(mBookDetail.getChapterList().size() - position - 1);
-                    startReadActivity(mBookDetail);
-                }
+            mListView.setOnItemClickListener((parent, view, position, id) -> {
+                mBookDetail.setBookmarkIndex(mBookDetail.getChapterList().size() - position - 1);
+                startReadActivity(mBookDetail);
             });
 
             /* 显示隐藏内容 */
@@ -268,7 +245,7 @@ public class DetailActivity extends BaseActivity {
      * @return 你懂的
      */
     private List<Chapter> getChapterLastItem(List<Chapter> chapterList, int length) {
-        List<Chapter> temp = new ArrayList<Chapter>();
+        List<Chapter> temp = new ArrayList<>();
         if (chapterList != null) {
             int index = chapterList.size() - 1;
             length = length > chapterList.size() ? chapterList.size() : length;
