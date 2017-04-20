@@ -7,15 +7,21 @@
 > <br/>
 > 新手练手项目
 
+### 使用的开源库︰
+- [**Android Support Libraries**]
+- [**ButterKnife**](https://github.com/JakeWharton/butterknife)
+- [**Jsoup**](https://github.com/jhy/jsoup)
+
 ### 版本特点 ###
-1. Meterial Design UI
-2. 阅读本地与网络上的书籍
+- Meterial Design UI
+- 阅读本地与网络上的书籍
+- 最低支持 **SDK 21**, _但是使用了AppCompat ;-)_
 
 ### 截图（旧版本） ###
 ![](screenshot/Screenshot_1.png) ![](screenshot/Screenshot_2.png) ![](screenshot/Screenshot_3.png)
 ![](screenshot/Screenshot_4.png) 
 
-# License
+# 开源协议
 
     Copyright (C) 2017 Zhang <zhang961129@outlook.com>
 
