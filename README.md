@@ -10,10 +10,10 @@
 ### 版本特点 ###
 - Meterial Design UI
 - 阅读本地与网络上的书籍
-- 最低支持 **SDK 21**, _但是使用了AppCompat ;-)_
+- 最低支持 **SDK 21**, 不过使用了AppCompat兼容包
 
 ### 使用的开源库︰
-- [**Android Support Libraries**] (https://developer.android.google.cn/index.html)
+- [**Android Support Libraries**](https://developer.android.google.cn/index.html)
 - [**ButterKnife**](https://github.com/JakeWharton/butterknife)
 - [**Jsoup**](https://github.com/jhy/jsoup)
 
