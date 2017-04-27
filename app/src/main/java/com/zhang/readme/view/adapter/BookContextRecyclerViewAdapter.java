@@ -5,10 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.zhang.readme.R;
 import com.zhang.readme.entity.BookContext;
+import com.zhang.readme.view.adapter.holder.BookContextViewHolder;
 
 import java.util.List;
 
@@ -44,7 +44,9 @@ public class BookContextRecyclerViewAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof BookContextViewHolder) {
             BookContextViewHolder bookContextViewHolder = (BookContextViewHolder) holder;
-            bookContextViewHolder.setData(mBookContextList.get(position));
+            bookContextViewHolder.bind(mBookContextList.get(position));
+        }else {
+
         }
     }
 
@@ -56,26 +58,6 @@ public class BookContextRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         return position != mBookContextList.size() ? 0 : 1;
-    }
-
-    private static class BookContextViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView mTitle;
-        private TextView mText;
-
-        private BookContextViewHolder(View itemView) {
-            super(itemView);
-
-            mTitle = (TextView) itemView.findViewById(R.id.read_title);
-            mText = (TextView) itemView.findViewById(R.id.read_text);
-        }
-
-        private void setData(BookContext bookContext) {
-            if (bookContext != null) {
-                mTitle.setText(bookContext.getTitle());
-                mText.setText(bookContext.getText());
-            }
-        }
     }
 
     private static class LoadContextViewHolder extends RecyclerView.ViewHolder {

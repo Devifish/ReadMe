@@ -41,6 +41,13 @@ public class BookListPageFragment extends BaseMainPageFragment implements SwipeR
     protected int bindLayout() {return R.layout.page_booklist_main;}
 
     @Override
+    protected void initVar() {
+        mBookDao = new BookListDao(this.getContext());
+        mBookList = mBookDao.getBookList();
+        mRecyclerViewAdapter = new BookListRecyclerViewAdapter(mBookList);
+    }
+
+    @Override
     protected void initView() {
         mSwipeRefreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_light,
@@ -52,13 +59,6 @@ public class BookListPageFragment extends BaseMainPageFragment implements SwipeR
         mRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
         mRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewItemClickListener());
-    }
-
-    @Override
-    protected void initVar() {
-        mBookDao = new BookListDao(this.getContext());
-        mBookList = mBookDao.getBookList();
-        mRecyclerViewAdapter = new BookListRecyclerViewAdapter(mBookList);
     }
 
     @Override

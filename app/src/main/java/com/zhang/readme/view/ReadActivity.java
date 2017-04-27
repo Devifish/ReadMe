@@ -27,11 +27,18 @@ public class ReadActivity extends BaseActivity {
     private List<BookContext> mBookContextList;
     private BookContextRecyclerViewAdapter mRecyclerViewAdapter;
 
-    @BindView(R.id.read_progressBar) ProgressBar mProgressBar;
-    @BindView(R.id.read_context_recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.progressBar) ProgressBar mProgressBar;
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
 
     @Override
     protected int bindLayout() {return R.layout.activity_read;}
+
+    @Override
+    protected void initVar() {
+        mBookContextList = new ArrayList<>();
+        mBookDetail = this.getIntent().getParcelableExtra("chapter_detail");
+        new ChapterDataInit().execute(mBookDetail.getChapterList().get(mBookDetail.getBookmarkIndex()).getUrl());
+    }
 
     @Override
     protected void initView() {
@@ -50,21 +57,17 @@ public class ReadActivity extends BaseActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!mRecyclerView.canScrollVertically(1) && !mLoad) {
-
                     Log.i("ContextOnload", mBookContextList.size() +"--"+ mRecyclerViewAdapter.getItemCount());
-                    mBookDetail.setBookmarkIndex(mBookDetail.getBookmarkIndex() + 1);
-                    new ChapterDataInit().execute(mBookDetail.getChapterList().get(mBookDetail.getBookmarkIndex()).getUrl());
+                    int bookmark = mBookDetail.getBookmarkIndex() + 1;
+                    if (bookmark < mBookDetail.getChapterList().size()) {
+                        mBookDetail.setBookmarkIndex(bookmark);
+                        new ChapterDataInit().execute(mBookDetail.getChapterList().get(bookmark).getUrl());
+                    }else {
 
+                    }
                 }
             }
         });
-    }
-
-    @Override
-    protected void initVar() {
-        mBookContextList = new ArrayList<>();
-        mBookDetail = this.getIntent().getParcelableExtra("chapter_detail");
-        new ChapterDataInit().execute(mBookDetail.getChapterList().get(mBookDetail.getBookmarkIndex()).getUrl());
     }
 
     private class ChapterDataInit extends AsyncTask<String, Integer, String> {
@@ -82,7 +85,8 @@ public class ReadActivity extends BaseActivity {
             super.onPostExecute(s);
             mLoad = false;
             BookContext bookContext = new BookContext();
-            bookContext.setTitle(mBookDetail.getChapterList().get(mBookDetail.getBookmarkIndex()).getName());
+            int bookmark = mBookDetail.getBookmarkIndex();
+            bookContext.setTitle(mBookDetail.getChapterList().get(bookmark).getName());
             bookContext.setText(s);
             mBookContextList.add(bookContext);
 

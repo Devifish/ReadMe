@@ -50,7 +50,7 @@ public class BlurUtil {
      * 将RGB值转换成Java公用值
      *
      * 用32位标识色彩值
-     * 32~24 透明度, 23~16 红, 15~8 绿, 7~0 蓝
+     * 31~24 透明度, 23~16 红, 15~8 绿, 7~0 蓝
      * @param r Red
      * @param g Green
      * @param b Blue

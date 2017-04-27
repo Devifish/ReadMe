@@ -7,12 +7,12 @@
     tools:context="com.zhang.readme.view.ReadActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/read_context_recyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <ProgressBar
-        android:id="@+id/read_progressBar"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
