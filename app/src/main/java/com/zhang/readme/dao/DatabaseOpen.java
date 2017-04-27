@@ -14,7 +14,7 @@ import com.zhang.readme.util.Config;
 
 public class DatabaseOpen extends SQLiteOpenHelper {
 
-    DatabaseOpen(Context context) {
+    public DatabaseOpen(Context context) {
         super(context, Config.Database.DB_NAME, null, 1);
     }
 

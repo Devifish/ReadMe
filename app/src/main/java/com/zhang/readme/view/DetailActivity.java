@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -91,6 +92,7 @@ public class DetailActivity extends BaseActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
+        mToolsImage.setVisibility(View.INVISIBLE);
         mScrollView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.GONE);
@@ -231,6 +233,15 @@ public class DetailActivity extends BaseActivity {
             mProgressBar.setVisibility(View.GONE);
             mScrollView.setVisibility(View.VISIBLE);
             mListView.setVisibility(View.VISIBLE);
+            mToolsImage.setVisibility(View.VISIBLE);
+
+            ViewAnimationUtils.createCircularReveal(
+                    mToolsImage,
+                    mToolsImage.getWidth()/2,
+                    mToolsImage.getHeight()/2,
+                    0,
+                    mToolsImage.getWidth()
+            ).setDuration(1000).start();
 
             /* 传递内容至各个事件 */
             mBookDetail= bookDetail;

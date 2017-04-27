@@ -12,7 +12,7 @@ import com.zhang.readme.entity.Book;
  *
  */
 
-public class BookListDao extends DatabaseOpen{
+public class BookListDao extends DatabaseOpen {
 
     private final static String TABLE_NAME = "books";
 

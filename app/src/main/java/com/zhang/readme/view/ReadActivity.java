@@ -64,6 +64,7 @@ public class ReadActivity extends BaseActivity {
                         new ChapterDataInit().execute(mBookDetail.getChapterList().get(bookmark).getUrl());
                     }else {
 
+
                     }
                 }
             }
