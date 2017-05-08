@@ -1,11 +1,14 @@
 package com.zhang.readme.view.adapter.holder;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zhang.readme.R;
 import com.zhang.readme.view.base.BaseViewHolder;
 import com.zhang.readme.entity.Book;
@@ -20,18 +23,24 @@ import butterknife.BindView;
 
 public class BookListViewHolder extends BaseViewHolder<Book> {
 
-    @BindView(R.id.image) ImageView image;
-    @BindView(R.id.title) TextView title;
-    @BindView(R.id.author) TextView author;
+    private Context mContext;
+
+    @BindView(R.id.image) ImageView mImage;
+    @BindView(R.id.title) TextView mTitle;
+    @BindView(R.id.author) TextView mAuthor;
 
     public BookListViewHolder(@NonNull View itemView, @NonNull OnItemClickListener listener) {
         super(itemView, listener);
+        mContext = itemView.getContext();
     }
 
     @Override
     public void bind(@NonNull Book book) {
-        title.setText(book.getTitle());
-        author.setText(book.getAuthor());
-        image.setImageDrawable(Drawable.createFromPath(book.getImagePath()));
+        mTitle.setText(book.getTitle());
+        mAuthor.setText(book.getAuthor());
+        Glide.with(mContext)
+                .load(book.getImagePath())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(mImage);
     }
 }

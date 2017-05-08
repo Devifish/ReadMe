@@ -1,5 +1,6 @@
 package com.zhang.readme.view;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +9,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.zhang.readme.R;
+import com.zhang.readme.dao.BookmarkDao;
 import com.zhang.readme.entity.BookContext;
 import com.zhang.readme.entity.BookDetail;
+import com.zhang.readme.entity.Bookmark;
 import com.zhang.readme.provider.ChapterProvider;
 import com.zhang.readme.util.ProviderUtil;
 import com.zhang.readme.view.adapter.BookContextRecyclerViewAdapter;
@@ -24,6 +27,7 @@ public class ReadActivity extends BaseActivity {
 
     private boolean mLoad = false;
     private BookDetail mBookDetail;
+    private BookmarkDao mBookmarkDao;
     private List<BookContext> mBookContextList;
     private BookContextRecyclerViewAdapter mRecyclerViewAdapter;
 
@@ -37,6 +41,7 @@ public class ReadActivity extends BaseActivity {
     protected void initVar() {
         mBookContextList = new ArrayList<>();
         mBookDetail = this.getIntent().getParcelableExtra("chapter_detail");
+        mBookmarkDao = new BookmarkDao(this);
         new ChapterDataInit().execute(mBookDetail.getChapterList().get(mBookDetail.getBookmarkIndex()).getUrl());
     }
 
@@ -58,12 +63,23 @@ public class ReadActivity extends BaseActivity {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!mRecyclerView.canScrollVertically(1) && !mLoad) {
                     Log.i("ContextOnload", mBookContextList.size() +"--"+ mRecyclerViewAdapter.getItemCount());
-                    int bookmark = mBookDetail.getBookmarkIndex() + 1;
-                    if (bookmark < mBookDetail.getChapterList().size()) {
-                        mBookDetail.setBookmarkIndex(bookmark);
-                        new ChapterDataInit().execute(mBookDetail.getChapterList().get(bookmark).getUrl());
+                    int index = mBookDetail.getBookmarkIndex() + 1;
+                    if (index < mBookDetail.getChapterList().size()) {
+                        mBookDetail.setBookmarkIndex(index);
+                        int book_id = mBookDetail.getBook().getId();
+                        if (mBookmarkDao.existsByClass(book_id, BookmarkDao.BOOKMARK_AUTO)) {
+                            mBookmarkDao.updateAutoBookmark(book_id, index);
+                        }else {
+                            Bookmark bookmark = new Bookmark();
+                            bookmark.setBookId(mBookDetail.getBook().getId());
+                            bookmark.setName(mBookDetail.getBook().getTitle());
+                            bookmark.setBookIndex(index);
+                            bookmark.setMarkClass("auto");
+                            mBookmarkDao.insertBookmark(bookmark);
+                            mBookDetail.setBookmark(mBookmarkDao.getAutoBookmark(book_id));
+                        }
+                        new ChapterDataInit().execute(mBookDetail.getChapterList().get(index).getUrl());
                     }else {
-
 
                     }
                 }
@@ -71,6 +87,13 @@ public class ReadActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBookmarkDao.close();
+    }
+
+    @SuppressLint("StaticFieldLeak")
     private class ChapterDataInit extends AsyncTask<String, Integer, String> {
 
         @Override

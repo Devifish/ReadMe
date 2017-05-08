@@ -1,5 +1,6 @@
 package com.zhang.readme.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -20,6 +21,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zhang.readme.R;
 import com.zhang.readme.dao.BookListDao;
 import com.zhang.readme.dao.BookmarkDao;
@@ -49,7 +52,6 @@ public class DetailActivity extends BaseActivity {
     private static final int CHAPTER_LATELY = 10;
     private BookListDao mBookListDao;
     private BookmarkDao mBookmarkDao;
-    private Book mBook;
     private BookDetail mBookDetail;
 
     @BindView(R.id.book_title) TextView mTitle;
@@ -73,11 +75,11 @@ public class DetailActivity extends BaseActivity {
     protected void initVar() {
         mBookmarkDao = new BookmarkDao(this);
         mBookListDao = new BookListDao(this);
-        mBook = getIntent().getParcelableExtra("book_info");
-        if (mBook != null) {
-            String bookPath = mBook.getBookPath();
+        Book book = getIntent().getParcelableExtra("book_info");
+        if (book != null) {
+            String bookPath = book.getBookPath();
             if (bookPath != null && bookPath.length() > 0) {
-                new DetailDataInit().execute(mBook);
+                new DetailDataInit().execute(book);
             }
         }
     }
@@ -146,8 +148,8 @@ public class DetailActivity extends BaseActivity {
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.menu_del:
-                boolean b = mBookListDao.delete(mBook);
-                Toast.makeText(DetailActivity.this, b ? "删除成功" : "该书未加入书架", Toast.LENGTH_SHORT).show();
+                boolean isOK = mBookListDao.delete(mBookDetail.getBook());
+                Toast.makeText(DetailActivity.this, isOK ? "删除成功" : "该书未加入书架", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -166,6 +168,7 @@ public class DetailActivity extends BaseActivity {
     /**
      * 异步线程加载书籍信息
      */
+    @SuppressLint("StaticFieldLeak")
     private class DetailDataInit extends AsyncTask<Book, Integer, BookDetail> {
 
         @Override
@@ -181,7 +184,6 @@ public class DetailActivity extends BaseActivity {
                 book.setImagePath(provider.getBookImagePath());
                 detail.setBook(book);
                 detail.setBookmark(mBookmarkDao.getAutoBookmark(book.getId()));
-                FileCacheUtil.getFileByURL(DetailActivity.this, provider.getBookImagePath());
             }
             Log.i("bookDetail_info",detail.toString());
             return detail;
@@ -201,12 +203,12 @@ public class DetailActivity extends BaseActivity {
             List<Chapter> list = bookDetail.getChapterList();
             mTitle.setText(book.getTitle());
             mAuthor.setText(String.format("作者：%s", book.getAuthor()));
-            File file = FileCacheUtil.getFileByURL(DetailActivity.this ,book.getImagePath());
-
-            Drawable image = Drawable.createFromPath(file.getAbsolutePath());
-            mImage.setImageDrawable(image);
-
             mInfo.setText(bookDetail.getBookInfo());
+            Glide.with(DetailActivity.this)
+                    .load(book.getImagePath())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(mImage);
+
             if (bookDetail.getBookmarkIndex() != 0) mLastRead.setText(list.get(bookDetail.getBookmarkIndex()).getName());
             else mLastRead.setText(R.string.book_noRead);
             mChapterLength.setText(String.format("共%s章",list.size()));

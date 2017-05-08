@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.zhang.readme.App;
 import com.zhang.readme.entity.BookList;
 import com.zhang.readme.entity.Book;
 

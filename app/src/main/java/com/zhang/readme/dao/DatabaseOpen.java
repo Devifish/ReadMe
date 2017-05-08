@@ -24,8 +24,8 @@ public class DatabaseOpen extends SQLiteOpenHelper {
         db.execSQL(Config.Database.SQL_BOOKMARK);
         db.execSQL(Config.Database.SQL_USER);
 
-        db.execSQL("insert into books(title, author, book_path, image_path) values ('一念永恒', '耳根', 'http://www.8dushu.com/xiaoshuo/69/69059/', '/data/user/0/com.zhang.readme/cache/69059s.jpg')");
-        db.execSQL("insert into books(title, author, book_path, image_path) values ('圣虚', '辰东', 'http://www.8dushu.com/xiaoshuo/81/81637/', '/data/user/0/com.zhang.readme/cache/81637s.jpg')");
+        db.execSQL("insert into books(title, author, book_path, image_path) values ('一念永恒', '耳根', 'http://www.8dushu.com/xiaoshuo/69/69059/', 'http://fm.8dushu.com/69/69059/69059s.jpg')");
+        db.execSQL("insert into books(title, author, book_path, image_path) values ('圣虚', '辰东', 'http://www.8dushu.com/xiaoshuo/81/81637/', 'http://fm.8dushu.com/81/81637/81637s.jpg')");
 
         db.execSQL("insert into bookmark(book_id, name, book_index, mark_class) values (1, '一念永恒', 5, 'auto')");
     }
