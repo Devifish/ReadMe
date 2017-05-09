@@ -15,6 +15,7 @@
 ### 使用的开源库︰
 - [**Android Support Libraries**](https://developer.android.google.cn/index.html)
 - [**ButterKnife**](https://github.com/JakeWharton/butterknife)
+- [**Glide**](https://github.com/bumptech/glide)
 - [**Jsoup**](https://github.com/jhy/jsoup)
 
 ### 截图（旧版本） ###
