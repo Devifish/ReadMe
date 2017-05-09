@@ -65,6 +65,10 @@ public class BookListPageFragment extends BaseMainPageFragment implements SwipeR
     public void onRefresh() {
         new Handler().postDelayed(() -> {
             mSwipeRefreshLayout.setRefreshing(false);
+
+            mBookList = mBookDao.getBookList();
+            mRecyclerViewAdapter.notifyDataSetChanged();
+
             Toast.makeText(getContext(), "更新成功", Toast.LENGTH_SHORT).show();
         }, 2000);
     }
@@ -93,7 +97,10 @@ public class BookListPageFragment extends BaseMainPageFragment implements SwipeR
                     case 1: //缓存到本地
                         break;
                     case 2: //移出书架
-                        mRecyclerViewAdapter.removeItem(position);
+                        if (mBookDao.delete(mBookList.get(position))) {
+                            mRecyclerViewAdapter.removeItem(position);
+                            Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     default: break;
                 }

@@ -2,7 +2,6 @@ package com.zhang.readme.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
@@ -31,10 +30,8 @@ import com.zhang.readme.entity.Chapter;
 import com.zhang.readme.entity.BookDetail;
 import com.zhang.readme.provider.BookProvider;
 import com.zhang.readme.util.ProviderUtil;
-import com.zhang.readme.util.FileCacheUtil;
 import com.zhang.readme.view.base.BaseActivity;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -206,6 +203,7 @@ public class DetailActivity extends BaseActivity {
             mInfo.setText(bookDetail.getBookInfo());
             Glide.with(DetailActivity.this)
                     .load(book.getImagePath())
+                    .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(mImage);
 

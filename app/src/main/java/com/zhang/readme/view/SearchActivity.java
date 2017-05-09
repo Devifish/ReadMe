@@ -1,5 +1,6 @@
 package com.zhang.readme.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
@@ -16,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zhang.readme.R;
 import com.zhang.readme.entity.Book;
 import com.zhang.readme.entity.BookList;
@@ -63,6 +66,7 @@ public class SearchActivity extends BaseActivity {
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class SearchDataInit extends AsyncTask<String, Integer, BookList> {
 
         @Override
@@ -77,7 +81,7 @@ public class SearchActivity extends BaseActivity {
         protected void onPostExecute(final BookList bookList) {
             super.onPostExecute(bookList);
             for (Book book : bookList) {
-                Log.i("text", book.getTitle() + "--"+ book.getAuthor() +"--"+ book.getBookPath());
+                Log.i("text", book.toString());
             }
             mProgressBar.setVisibility(View.GONE);
             mListView.setAdapter(new SearchListViewAdapter(bookList));
@@ -122,6 +126,12 @@ public class SearchActivity extends BaseActivity {
             Book book = mBooks.get(position);
             title.setText(book.getTitle());
             author.setText(book.getAuthor());
+            if (book.getImagePath() != null) {
+                Glide.with(getApplicationContext())
+                        .load(mBooks.get(position).getImagePath())
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(image);
+            }
 
             return view;
         }

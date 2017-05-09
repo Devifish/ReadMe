@@ -40,6 +40,7 @@ public class BookListViewHolder extends BaseViewHolder<Book> {
         mAuthor.setText(book.getAuthor());
         Glide.with(mContext)
                 .load(book.getImagePath())
+                .crossFade(800)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mImage);
     }
