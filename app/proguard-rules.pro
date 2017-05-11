@@ -16,10 +16,31 @@
 #   public *;
 #}
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
-
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepattributes Signature
+-keepattributes Exceptions
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+-keepattributes *Annotation*,SourceFile,LineNumberTable
+
+# 不混淆R类里及其所有内部static类中的所有static变量字段
+-keepclassmembers class **.R$* {
+  public static <fields>;
+}
+
+# 不混淆实现Parcelable接口的entity类
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+# 不混淆引用的三方库
+-keep public class * implements butterknife.Unbinder { public <init>(**, android.view.View); }
+-keep class butterknife.**
+-keepclasseswithmembernames class * { @butterknife.* <methods>; }
+-keepclasseswithmembernames class * { @butterknife.* <fields>; }
+-keep class org.jsoup.**
+-keep class com.bumptech.glide.**

@@ -151,7 +151,6 @@ public class DetailActivity extends BaseActivity {
             default:
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

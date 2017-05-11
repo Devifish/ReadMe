@@ -7,8 +7,8 @@ android {
         applicationId "com.zhang.readme"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0 (Dev)"
+        versionCode 10
+        versionName "Bata 1.0"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -19,7 +19,8 @@ android {
     buildTypes {
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             zipAlignEnabled true
         }
     }
