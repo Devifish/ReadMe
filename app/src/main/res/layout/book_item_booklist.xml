@@ -15,9 +15,10 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="128dp"
-            android:scaleType="fitXY"
             android:background="@color/colorPrimaryDark"
-            android:contentDescription="@string/book_class" />
+            android:transitionName="book_image"
+            android:contentDescription="@string/book_class"
+            android:scaleType="fitXY"/>
 
         <LinearLayout
             android:layout_width="match_parent"

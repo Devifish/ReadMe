@@ -17,7 +17,7 @@
             android:layout_height="125dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@color/colorAccent"
+            android:transitionName="book_image"
             android:contentDescription="@string/test"
             android:scaleType="fitXY" />
 
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="56dp"
             android:layout_toEndOf="@+id/book_image"
             android:textColor="@android:color/black"
             android:textSize="20sp"
@@ -55,100 +55,104 @@
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:background="@color/split_line" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginStart="32dp"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:text="@string/book_lastRead"/>
-
-        <TextView
-            android:id="@+id/lastRead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            tools:text="阅读位置"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:background="@color/split_line" />
-
-    <TextView
-        android:id="@+id/book_info"
+        android:id="@+id/book_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:lineSpacingMultiplier="1.3"
-        android:padding="32dp"
-        android:textColor="@android:color/black"
-        tools:text="@string/book_info" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@color/split_line" />
-
-    <include
-        layout="@layout/book_tag_detail" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@color/split_line" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="42dp">
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/split_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginStart="32dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/book_chapter"
-                android:textSize="16sp"
                 android:textColor="@color/colorAccent"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"/>
+                android:text="@string/book_lastRead"/>
 
-            <Button
-                android:id="@+id/chapterAll"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/ic_keyboard_arrow_right"
-                android:backgroundTint="@color/colorAccent"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"/>
+            <TextView
+                android:id="@+id/lastRead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                tools:text="阅读位置"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <ListView
-            android:id="@+id/chapter_list"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="512dp" />
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/split_line" />
+
+        <TextView
+            android:id="@+id/book_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.3"
+            android:padding="32dp"
+            android:textColor="@android:color/black"
+            tools:text="@string/book_info" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/split_line" />
+
+        <include
+            layout="@layout/book_tag_detail" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/split_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_chapter"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"/>
+
+                <Button
+                    android:id="@+id/chapterAll"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:background="@drawable/ic_keyboard_arrow_right"
+                    android:backgroundTint="@color/colorAccent"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

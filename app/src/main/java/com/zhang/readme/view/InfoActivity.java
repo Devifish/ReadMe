@@ -18,7 +18,7 @@ public class InfoActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mVersion.setText(String.format(mVersion.getText().toString(), Config.AppInfo.getVersionName(this)));
+        mVersion.setText(getString(R.string.version, Config.AppInfo.getVersionName(this)));
     }
 
     @Override

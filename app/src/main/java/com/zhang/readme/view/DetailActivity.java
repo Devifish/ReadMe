@@ -15,6 +15,7 @@ import android.view.ViewAnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,10 +61,10 @@ public class DetailActivity extends BaseActivity {
     @BindView(R.id.book_info) TextView mInfo;
     @BindView(R.id.updateTime) TextView mUpdateTime;
     @BindView(R.id.chapterLength) TextView mChapterLength;
-    @BindView(R.id.chapter_list) ListView mListView;
+//    @BindView(R.id.chapter_list) ListView mListView;
     @BindView(R.id.progress) ProgressBar mProgressBar;
     @BindView(R.id.chapterAll) Button mChapterAll;
-    @BindView(R.id.scrollView) NestedScrollView mScrollView;
+    @BindView(R.id.book_detail) LinearLayout mDetail;
 
     @Override
     protected int bindLayout() {return R.layout.activity_detail;}
@@ -73,9 +74,20 @@ public class DetailActivity extends BaseActivity {
         mBookmarkDao = new BookmarkDao(this);
         mBookListDao = new BookListDao(this);
         Book book = getIntent().getParcelableExtra("book_info");
+
         if (book != null) {
-            String bookPath = book.getBookPath();
-            if (bookPath != null && bookPath.length() > 0) {
+            if (book.getTitle() != null && book.getAuthor() != null) {
+                mTitle.setText(book.getTitle());
+                mAuthor.setText(book.getAuthor());
+            }
+            if (book.getImagePath() != null) {
+                Glide.with(DetailActivity.this)
+                        .load(book.getImagePath())
+                        .dontAnimate()
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(mImage);
+            }
+            if (book.getBookPath() != null) {
                 new DetailDataInit().execute(book);
             }
         }
@@ -91,10 +103,9 @@ public class DetailActivity extends BaseActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
+        mDetail.setVisibility(View.INVISIBLE);
         mToolsImage.setVisibility(View.INVISIBLE);
-        mScrollView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
-        mListView.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.book_btn) void onReadBook() {
@@ -197,14 +208,14 @@ public class DetailActivity extends BaseActivity {
             /* 页面内容加载 */
             Book book = bookDetail.getBook();
             List<Chapter> list = bookDetail.getChapterList();
-            mTitle.setText(book.getTitle());
-            mAuthor.setText(String.format("作者：%s", book.getAuthor()));
             mInfo.setText(bookDetail.getBookInfo());
-            Glide.with(DetailActivity.this)
-                    .load(book.getImagePath())
-                    .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(mImage);
+            if (mImage.getDrawable() == null) {
+                Glide.with(DetailActivity.this)
+                        .load(book.getImagePath())
+                        .dontAnimate()
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(mImage);
+            }
 
             if (bookDetail.getBookmarkIndex() != 0) mLastRead.setText(list.get(bookDetail.getBookmarkIndex()).getName());
             else mLastRead.setText(R.string.book_noRead);
@@ -217,22 +228,21 @@ public class DetailActivity extends BaseActivity {
                 else mButton.setText(R.string.book_continue);
             }else mButton.setText(R.string.book_add);
 
-            //展示最近5章小说标题
-            mListView.setAdapter(new ArrayAdapter<>(
-                    DetailActivity.this,
-                        R.layout.chapter_item_detail,
-                            getChapterLastItem(list, CHAPTER_LATELY)));
-
-            mListView.setOnItemClickListener((parent, view, position, id) -> {
-                mBookDetail.setBookmarkIndex(mBookDetail.getChapterList().size() - position - 1);
-                startReadActivity(mBookDetail);
-            });
+//            //展示最近5章小说标题
+//            mListView.setAdapter(new ArrayAdapter<>(
+//                    DetailActivity.this,
+//                        R.layout.chapter_item_detail,
+//                            getChapterLastItem(list, CHAPTER_LATELY)));
+//
+//            mListView.setOnItemClickListener((parent, view, position, id) -> {
+//                mBookDetail.setBookmarkIndex(mBookDetail.getChapterList().size() - position - 1);
+//                startReadActivity(mBookDetail);
+//            });
 
             /* 显示隐藏内容 */
-            mProgressBar.setVisibility(View.GONE);
-            mScrollView.setVisibility(View.VISIBLE);
-            mListView.setVisibility(View.VISIBLE);
             mToolsImage.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.GONE);
+            mDetail.setVisibility(View.VISIBLE);
 
             ViewAnimationUtils.createCircularReveal(
                     mToolsImage,

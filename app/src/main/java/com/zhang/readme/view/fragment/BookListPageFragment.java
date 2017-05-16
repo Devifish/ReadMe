@@ -2,17 +2,20 @@ package com.zhang.readme.view.fragment;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.zhang.readme.R;
 import com.zhang.readme.dao.BookListDao;
 import com.zhang.readme.entity.BookList;
 import com.zhang.readme.view.DetailActivity;
+import com.zhang.readme.view.MainActivity;
 import com.zhang.readme.view.adapter.BookListRecyclerViewAdapter;
 import com.zhang.readme.view.base.BaseMainPageFragment;
 import com.zhang.readme.view.adapter.holder.BookListViewHolder;
@@ -83,7 +86,8 @@ public class BookListPageFragment extends BaseMainPageFragment implements SwipeR
         public void onItemClick(View view, int position) {
             Intent intent = new Intent(getContext(), DetailActivity.class);
             intent.putExtra("book_info", mBookList.get(position));
-            startActivity(intent);
+            ImageView imageView = (ImageView) view.findViewById(R.id.image);
+            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), imageView, "book_image").toBundle());
         }
 
         @Override
