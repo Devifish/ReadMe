@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.zhang.readme.view.SplashActivity">
+    tools:context="cn.devifish.readme.view.SplashActivity">
 
     <ImageView
         android:id="@+id/splash_img"

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.zhang.readme">
+    package="cn.devifish.readme">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".App"
+        android:name="cn.devifish.readme.App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +16,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".view.SplashActivity"
+            android:name="cn.devifish.readme.view.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.Fullscreen">
             <intent-filter>
@@ -26,26 +26,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name="cn.devifish.readme.view.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.SearchActivity"
+            android:name="cn.devifish.readme.view.SearchActivity"
             android:label="@string/search"
-            android:parentActivityName=".view.MainActivity"
+            android:parentActivityName="cn.devifish.readme.view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.InfoActivity"
+            android:name="cn.devifish.readme.view.InfoActivity"
             android:label="@string/info"
-            android:parentActivityName=".view.MainActivity" />
+            android:parentActivityName="cn.devifish.readme.view.MainActivity" />
         <activity
-            android:name=".view.DetailActivity"
+            android:name="cn.devifish.readme.view.DetailActivity"
             android:label="@string/book_detail"
-            android:parentActivityName=".view.MainActivity"
+            android:parentActivityName="cn.devifish.readme.view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ReadActivity"
-            android:parentActivityName=".view.DetailActivity"
+            android:name="cn.devifish.readme.view.ReadActivity"
+            android:parentActivityName="cn.devifish.readme.view.DetailActivity"
             android:theme="@style/AppTheme.NoActionBar.Fullscreen"/>
 
     </application>
