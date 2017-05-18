@@ -17,6 +17,7 @@
             android:layout_height="125dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
             android:transitionName="book_image"
             android:contentDescription="@string/test"
             android:scaleType="fitXY" />
@@ -150,6 +151,11 @@
                     android:layout_alignParentEnd="true"/>
 
             </RelativeLayout>
+
+            <ListView
+                android:id="@+id/chapter_list"
+                android:layout_width="match_parent"
+                android:layout_height="512dp" />
 
         </LinearLayout>
 

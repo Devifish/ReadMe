@@ -65,19 +65,6 @@ public class ReadActivity extends BaseActivity {
                     Log.i("ContextOnload", mBookContextList.size() +"--"+ mRecyclerViewAdapter.getItemCount());
                     int index = mBookDetail.getBookmarkIndex() + 1;
                     if (index < mBookDetail.getChapterList().size()) {
-                        mBookDetail.setBookmarkIndex(index);
-                        int book_id = mBookDetail.getBook().getId();
-                        if (mBookmarkDao.existsByClass(book_id, BookmarkDao.BOOKMARK_AUTO)) {
-                            mBookmarkDao.updateAutoBookmark(book_id, index);
-                        }else {
-                            Bookmark bookmark = new Bookmark();
-                            bookmark.setBookId(mBookDetail.getBook().getId());
-                            bookmark.setName(mBookDetail.getBook().getTitle());
-                            bookmark.setBookIndex(index);
-                            bookmark.setMarkClass("auto");
-                            mBookmarkDao.insertBookmark(bookmark);
-                            mBookDetail.setBookmark(mBookmarkDao.getAutoBookmark(book_id));
-                        }
                         new ChapterDataInit().execute(mBookDetail.getChapterList().get(index).getUrl());
                     }else {
 
@@ -91,6 +78,22 @@ public class ReadActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mBookmarkDao.close();
+    }
+
+    public void updateBookmark(int index) {
+        mBookDetail.setBookmarkIndex(index);
+        int book_id = mBookDetail.getBook().getId();
+        if (mBookmarkDao.existsByClass(book_id, BookmarkDao.BOOKMARK_AUTO)) {
+            mBookmarkDao.updateAutoBookmark(book_id, index);
+        }else {
+            Bookmark bookmark = new Bookmark();
+            bookmark.setBookId(mBookDetail.getBook().getId());
+            bookmark.setName(mBookDetail.getBook().getTitle());
+            bookmark.setBookIndex(index);
+            bookmark.setMarkClass("auto");
+            mBookmarkDao.insertBookmark(bookmark);
+            mBookDetail.setBookmark(mBookmarkDao.getAutoBookmark(book_id));
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -117,12 +120,14 @@ public class ReadActivity extends BaseActivity {
             if (mRecyclerViewAdapter == null) {
                 mRecyclerViewAdapter = new BookContextRecyclerViewAdapter(ReadActivity.this, mBookContextList);
                 mRecyclerView.setAdapter(mRecyclerViewAdapter);
+
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.GONE);
+
             }else {
                 mRecyclerViewAdapter.notifyItemChanged(mRecyclerViewAdapter.getItemCount()-1);
             }
-
-            mRecyclerView.setVisibility(View.VISIBLE);
-            mProgressBar.setVisibility(View.GONE);
+            updateBookmark(bookmark);
         }
     }
 }

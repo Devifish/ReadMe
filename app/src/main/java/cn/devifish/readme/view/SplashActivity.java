@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         //加载Splash图片
         ImageView image = (ImageView) findViewById(R.id.splash_img);
         try {
-            InputStream is = getAssets().open("splash_launcher.png");
+            InputStream is = getAssets().open("splash_launcher.webp");
             image.setImageDrawable(Drawable.createFromStream(is, "splash"));
 
             is.close();

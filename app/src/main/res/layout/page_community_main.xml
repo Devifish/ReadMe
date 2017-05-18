@@ -6,16 +6,26 @@
     android:layout_height="match_parent"
     tools:context="cn.devifish.readme.view.fragment.CommunityPageFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="200dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="😒"
+            android:textSize="84sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="未开放"
-            android:layout_gravity="center" />
+            android:layout_below="@id/text1"
+            android:text="某一个版本见"
+            android:textSize="18sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>
