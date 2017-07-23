@@ -2,7 +2,7 @@
 
 > 一款遵循 Meterial Design 设计的Android App<br/>
 > 界面简约 清爽 给你不一样的阅读体验<br/>
-> 小说内容均来源于网络采集（使用开源项目 Jsoup 爬取）<br/>
+> 小说内容来源于网络采集（使用开源项目 Jsoup 爬取）以及追书神器Api<br/>
 > 如果涉及版权问题，请联系zhang961129@outlook.com
 > <br/>
 > 新手练手项目
@@ -10,11 +10,17 @@
 ### 版本特点 ###
 - Meterial Design UI
 - 阅读本地与网络上的书籍
+- 小说数据源迁移至追书神器Api
 - 最低支持 **SDK 21**, 不过使用了AppCompat兼容包
 
 ### 使用的开源库︰
+- [**Kotlin**](https://github.com/JetBrains/kotlin)
 - [**Android Support Libraries**](https://developer.android.google.cn/index.html)
-- [**ButterKnife**](https://github.com/JakeWharton/butterknife)
+- [**FastJson**](https://github.com/alibaba/fastjson)
+- [**RxJava**](https://github.com/ReactiveX/RxJava)
+- [**RxAndroid**](https://github.com/ReactiveX/RxAndroid)
+- [**OKHttp3**](https://github.com/square/okhttp)
+- [**Retrofit2**](https://github.com/square/retrofit)
 - [**Glide**](https://github.com/bumptech/glide)
 - [**Jsoup**](https://github.com/jhy/jsoup)
 
