@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">读我吧</string>
 
+    <string name="login">登陆/注册</string>
+    <string name="sign">签名</string>
+    <string name="sign_body">这个人很懒，没有写签名</string>
+
     <string name="book_list">书架</string>
     <string name="book_class">分类</string>
     <string name="community">社区</string>

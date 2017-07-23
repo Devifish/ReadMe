@@ -1,27 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:gravity="start|center"
-    android:orientation="horizontal"
-    android:background="@drawable/nv_background"
+    android:background="@drawable/background"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:foreground="?android:attr/selectableItemBackground">
 
-    <ImageView
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        app:srcCompat="@drawable/head"
-        android:contentDescription="@string/test" />
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/line_heard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_vertical_margin"
-        android:text="@string/app_name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:id="@+id/textView" />
+        android:layout_centerVertical="true"
+        android:gravity="center|start"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/img_heard"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:contentDescription="@string/test"
+            app:srcCompat="@drawable/head" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:text="@string/login"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_below="@id/line_heard"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+    <TextView
+        android:id="@+id/tv_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_body"
+        android:layout_below="@id/tv_name"/>
+
+</RelativeLayout>

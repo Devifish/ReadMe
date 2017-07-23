@@ -1,46 +1,44 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
     defaultConfig {
         applicationId "cn.devifish.readme"
         minSdkVersion 21
-        targetSdkVersion 25
-        versionCode 10
-        versionName "Bata 1.0"
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0 Bata1"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    signingConfigs {
-    }
     buildTypes {
         release {
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
-    ext {
-        supportVersion = "25.3.1"
-        jsoupVersion = "1.10.2"
-        butterKnifeVersion = "8.5.1"
-        glideVersion = "3.8.0"
-    }
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:${supportVersion}"
-    compile "com.android.support:support-v4:${supportVersion}"
-    compile "com.android.support:design:${supportVersion}"
-    compile "com.android.support:recyclerview-v7:${supportVersion}"
-    compile "com.android.support:cardview-v7:${supportVersion}"
-    compile "org.jsoup:jsoup:${jsoupVersion}"
-    compile "com.github.bumptech.glide:glide:${glideVersion}"
-    compile "com.jakewharton:butterknife:${butterKnifeVersion}"
-    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:support-v4:$support_version"
+    compile "com.android.support:design:$support_version"
+    compile "com.android.support:cardview-v7:$support_version"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.5.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile 'org.ligboy.retrofit2:converter-fastjson:2.2.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.alibaba:fastjson:1.2.34'
 }

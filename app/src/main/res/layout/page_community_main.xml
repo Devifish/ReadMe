@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.devifish.readme.view.fragment.CommunityPageFragment">
+    tools:context="cn.devifish.readme.view.module.bookshelf.BookshelfFragment">
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_community"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent"
+        android:padding="5dp" />
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="😒"
-            android:textSize="84sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text1"
-            android:text="某一个版本见"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
-
-</android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>
