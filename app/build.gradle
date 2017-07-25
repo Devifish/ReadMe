@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.0'
+    buildToolsVersion '26.0.1'
     defaultConfig {
         applicationId "cn.devifish.readme"
         minSdkVersion 21
@@ -26,14 +26,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:support-v4:$support_version"
     compile "com.android.support:design:$support_version"
     compile "com.android.support:cardview-v7:$support_version"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.5.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -41,4 +40,7 @@ dependencies {
     compile 'org.ligboy.retrofit2:converter-fastjson:2.2.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.alibaba:fastjson:1.2.34'
+    compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
+    compile 'com.github.bumptech.glide:okhttp3-integration:4.0.0-RC1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
 }

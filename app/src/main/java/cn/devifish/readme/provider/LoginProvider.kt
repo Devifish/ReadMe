@@ -8,9 +8,9 @@ import okhttp3.OkHttpClient
 
 /**
  * Created by zhang on 2017/6/12.
- *
+ * App用户登陆功能提供
  */
-class LoginProvider(client: OkHttpClient) : BaseProvider(client) {
+class LoginProvider : BaseProvider() {
 
     private val loginService: LoginService = super.retrofit.create(LoginService::class.java)
 

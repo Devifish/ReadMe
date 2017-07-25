@@ -10,14 +10,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import cn.devifish.readme.R
-import cn.devifish.readme.entity.Book
-import cn.devifish.readme.entity.Books
+import cn.devifish.readme.entity.data.RankFemaleData
+import cn.devifish.readme.provider.RankProvider
 import cn.devifish.readme.provider.SearchProvider
 import cn.devifish.readme.util.Config
 import cn.devifish.readme.view.adapter.MainViewPageAdapter
 import cn.devifish.readme.view.base.BaseActivity
 import cn.devifish.readme.view.module.login.LoginActivity
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -51,13 +50,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     .setAction("Action", null)
                     .show()
         }
-
-        SearchProvider(OkHttpClient()).searchBooksByTitle("遮天")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    book -> Log.i("ss", book.toString())
-                }
 
     }
 

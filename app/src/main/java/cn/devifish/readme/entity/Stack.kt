@@ -5,6 +5,6 @@ package cn.devifish.readme.entity
  *
  */
 data class Stack(
-        val name: String,
-        val list: List<Book>
+        var name: String,
+        var list: List<Book>
 )

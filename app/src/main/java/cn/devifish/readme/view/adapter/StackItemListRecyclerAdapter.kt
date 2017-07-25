@@ -5,8 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import cn.devifish.readme.R
 import cn.devifish.readme.entity.Book
+import cn.devifish.readme.util.Config
 import cn.devifish.readme.view.base.BaseRecyclerAdapter
 import cn.devifish.readme.view.base.BaseViewHolder
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.book_item_stack.view.*
 
 /**
@@ -22,12 +24,14 @@ class StackItemListRecyclerAdapter(list: MutableList<Book>): BaseRecyclerAdapter
 
     override fun onBindView(holder: StackItemListHolder, position: Int) = holder.bind(getItem(position))
 
-
     class StackItemListHolder(itemView: View, listener: BaseViewHolder.OnItemClickListener?): BaseViewHolder<Book>(itemView, listener) {
 
         override fun bind(m: Book) {
             itemView.title.text = m.title
             itemView.author.text = m.author
+            Glide.with(itemView.context)
+                    .load(Config.IMG_BASE_URL + m.cover)
+                    .into(itemView.image);
         }
 
     }

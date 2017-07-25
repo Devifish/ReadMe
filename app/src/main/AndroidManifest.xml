@@ -28,6 +28,10 @@
             android:name=".view.module.login.LoginActivity"
             android:label="@string/login"
             android:theme="@style/AppTheme"/>
+
+        <meta-data
+            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+            android:value="GlideModule"/>
     </application>
 
 </manifest>

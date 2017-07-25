@@ -1,10 +1,12 @@
 package cn.devifish.readme.service
 
-import cn.devifish.readme.entity.Rank
-import cn.devifish.readme.entity.RankFemales
+import cn.devifish.readme.entity.data.BookData
+import cn.devifish.readme.entity.data.RankData
+import cn.devifish.readme.entity.data.RankFemaleData
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 /**
@@ -18,7 +20,7 @@ interface RankService {
      * url: http://api.zhuishushenqi.com/ranking/gender
      */
     @GET("/ranking/gender")
-    fun getRanking(): Observable<RankFemales>
+    fun getRanking(): Observable<RankFemaleData>
 
     /**
      * 获取单一排行榜
@@ -29,6 +31,20 @@ interface RankService {
      * @param rankingId 榜单ID
      */
     @GET("/ranking/{rankingId}")
-    fun getRanking(@Path("rankingId") rankingId: String): Observable<Rank>
+    fun getRanking(@Path("rankingId") rankingId: String): Observable<RankData>
+
+    /**
+     * 按分类获取书籍列表
+     * url: http://api.zhuishushenqi.com/book/by-categories?major=%E7%8E%84%E5%B9%BB&limit=15&type=hot&gender=male&start=0
+     * @param gender male、female
+     * @param type   hot(热门)、new(新书)、reputation(好评)、over(完结)
+     * @param major  玄幻
+     * @param minor  东方玄幻、异界大陆、异界争霸、远古神话
+     * @param limit  50
+     * @return
+     */
+    @GET("/book/by-categories")
+    fun getBooksByCats(@Query("gender") gender: String, @Query("type") type: String, @Query("major") major: String, @Query("minor") minor: String, @Query("start") start: Int, @Query("limit") limit: Int): Observable<BookData>
+
 
 }

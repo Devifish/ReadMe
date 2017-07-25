@@ -1,6 +1,8 @@
 package cn.devifish.readme.provider
 
 import cn.devifish.readme.util.Config
+import cn.devifish.readme.util.OkHttpUtil
+import cn.devifish.readme.util.RetrofitUtil
 import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -9,15 +11,10 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory
 
 /**
  * Created by zhang on 2017/7/22.
- *
+ * 没什么说的
  */
-open class BaseProvider(client: OkHttpClient) {
+open class BaseProvider {
 
-    protected val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(Config.API_BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(FastJsonConverterFactory.create())
-            .client(client)
-            .build();
+    protected val retrofit: Retrofit = RetrofitUtil.getInstance()
 
 }

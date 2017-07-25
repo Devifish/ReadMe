@@ -1,7 +1,6 @@
 package cn.devifish.readme.service
 
-import cn.devifish.readme.entity.Book
-import cn.devifish.readme.entity.Books
+import cn.devifish.readme.entity.data.BookData
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -19,7 +18,7 @@ interface SearchService {
      * @param query 书名
      */
     @GET("/book/fuzzy-search")
-    fun searchBooks(@Query("query") query: String): Observable<Books>
+    fun searchBooks(@Query("query") query: String): Observable<BookData>
 
     /**
      * 通过书名查询书籍
@@ -27,7 +26,7 @@ interface SearchService {
      * @param title 书名
      */
     @GET("/book/accurate-search")
-    fun searchBooksByTitle(@Query("title") title: String): Observable<Books>
+    fun searchBooksByTitle(@Query("title") title: String): Observable<BookData>
 
     /**
      * 通过作者查询书名
@@ -35,6 +34,6 @@ interface SearchService {
      * @param author 作者
      */
     @GET("/book/accurate-search")
-    fun searchBooksByAuthor(@Query("author") author: String): Observable<Books>
+    fun searchBooksByAuthor(@Query("author") author: String): Observable<BookData>
 
 }

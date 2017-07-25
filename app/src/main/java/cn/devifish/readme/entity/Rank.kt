@@ -15,5 +15,13 @@ data class Rank(
         var icon: String? = null,
         var monthRank: String? = null,
         var totalRank: String? = null,
-        var shortTitle: String? = null
+        var shortTitle: String? = null,
+        var created: Date? = null,
+        var isSub: Boolean = false,
+        var collapse: Boolean = false,
+        var new: Boolean = false,
+        var gender: String? = null,
+        var priority: Int = 0,
+        var books: List<Book>? = null,
+        var total: Int = 0
 )
