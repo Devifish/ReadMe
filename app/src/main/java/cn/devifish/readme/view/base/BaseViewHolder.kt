@@ -16,11 +16,11 @@ abstract class BaseViewHolder<M> constructor(itemView: View, listener: BaseViewH
         fun onItemLongClick(view: View, position: Int)
     }
 
-    private var mListener: OnItemClickListener? = null
+    private var listener: OnItemClickListener? = null
 
     init {
         if (listener != null) {
-            mListener = listener
+            this.listener = listener
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
         }
@@ -30,12 +30,12 @@ abstract class BaseViewHolder<M> constructor(itemView: View, listener: BaseViewH
 
     override fun onClick(view: View) {
         val position = adapterPosition
-        if (position != RecyclerView.NO_POSITION) mListener!!.onItemClick(view, position)
+        if (position != RecyclerView.NO_POSITION) listener!!.onItemClick(view, position)
     }
 
     override fun onLongClick(view: View): Boolean {
         val position = adapterPosition
-        if (position != RecyclerView.NO_POSITION) mListener!!.onItemLongClick(view, position)
+        if (position != RecyclerView.NO_POSITION) listener!!.onItemLongClick(view, position)
         return true
     }
 

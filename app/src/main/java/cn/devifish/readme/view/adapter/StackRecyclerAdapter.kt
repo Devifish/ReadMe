@@ -1,15 +1,17 @@
 package cn.devifish.readme.view.adapter
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import cn.devifish.readme.R
+import cn.devifish.readme.entity.Book
 import cn.devifish.readme.entity.Stack
 import cn.devifish.readme.view.base.BaseRecyclerAdapter
 import cn.devifish.readme.view.base.BaseViewHolder
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.list_item_stack.view.*
 
 /**
@@ -26,13 +28,39 @@ class StackRecyclerAdapter(list: MutableList<Stack>) : BaseRecyclerAdapter<Stack
 
     override fun onBindView(holder: StackHolder, position: Int) = holder.bind(getItem(position))
 
-    class StackHolder(itemView: View, listener: BaseViewHolder.OnItemClickListener?): BaseViewHolder<Stack>(itemView, listener) {
+    class StackHolder(itemView: View, listener: BaseViewHolder.OnItemClickListener?): BaseViewHolder<Stack>(itemView, listener), BaseViewHolder.OnItemClickListener {
+
+        private var stack: Stack? = null
 
         override fun bind(m: Stack) {
+            stack = m
             itemView.name.text = m.name
             itemView.list.layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
-            itemView.list.adapter = StackItemListRecyclerAdapter(m.list.toMutableList())
+            if (m.list == null) {
+                m.data.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            bookDate ->
+                                val books = bookDate.books!!.toMutableList()
+                                itemView.list.adapter = StackItemListRecyclerAdapter(books).apply {
+                                    setOnItemClickListener(this@StackHolder)
+                                }
+                                m.list = books
+                        }
+            }else {
+                itemView.list.adapter = StackItemListRecyclerAdapter(m.list as MutableList<Book>).apply {
+                    setOnItemClickListener(this@StackHolder)
+                }
+            }
         }
+
+        override fun onItemClick(view: View, position: Int) {
+            Log.i("ss", stack!!.list!!.get(position).title)
+        }
+
+        override fun onItemLongClick(view: View, position: Int) {
+        }
+
     }
 
 }

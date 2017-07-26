@@ -22,7 +22,6 @@ abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>(val list: MutableL
     protected abstract fun onCreateView(group: ViewGroup, viewType: Int): VH
     protected abstract fun onBindView(holder: VH, position: Int)
 
-
     fun setOnItemClickListener(listener: BaseViewHolder.OnItemClickListener?) {
         this.listener = listener
     }

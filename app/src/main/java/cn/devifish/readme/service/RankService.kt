@@ -1,5 +1,8 @@
 package cn.devifish.readme.service
 
+import cn.devifish.readme.entity.bean.Gender
+import cn.devifish.readme.entity.bean.Major
+import cn.devifish.readme.entity.bean.Minor
 import cn.devifish.readme.entity.data.BookData
 import cn.devifish.readme.entity.data.RankData
 import cn.devifish.readme.entity.data.RankFemaleData
@@ -44,7 +47,7 @@ interface RankService {
      * @return
      */
     @GET("/book/by-categories")
-    fun getBooksByCats(@Query("gender") gender: String, @Query("type") type: String, @Query("major") major: String, @Query("minor") minor: String, @Query("start") start: Int, @Query("limit") limit: Int): Observable<BookData>
+    fun getBooksByCats(@Query("gender") gender: Gender, @Query("type") type: String, @Query("major") major: String, @Query("minor") minor: String, @Query("start") start: Int, @Query("limit") limit: Int): Observable<BookData>
 
 
 }
