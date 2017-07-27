@@ -19,4 +19,6 @@ class SearchProvider : BaseProvider(), SearchService {
 
     override fun searchBooksByAuthor(author: String): Observable<BookData> = searchService.searchBooksByAuthor(author)
 
+    override fun autoComplete(query: String): Observable<String> = searchService.autoComplete(query)
+
 }

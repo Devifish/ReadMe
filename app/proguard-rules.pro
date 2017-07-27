@@ -40,7 +40,15 @@
 # 不混淆引用的三方库
 -keep public class * implements butterknife.Unbinder { public <init>(**, android.view.View); }
 -keep class butterknife.**
+
 -keepclasseswithmembernames class * { @butterknife.* <methods>; }
 -keepclasseswithmembernames class * { @butterknife.* <fields>; }
+
 -keep class org.jsoup.**
--keep class com.bumptech.glide.**
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}

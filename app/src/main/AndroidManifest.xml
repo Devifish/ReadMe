@@ -28,12 +28,13 @@
             android:name=".view.module.login.LoginActivity"
             android:label="@string/login"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".view.module.bookdetail.BookDetailActivity" />
 
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
 
-        <activity android:name=".view.module.bookdetail.BookDetailActivity"></activity>
     </application>
 
 </manifest>

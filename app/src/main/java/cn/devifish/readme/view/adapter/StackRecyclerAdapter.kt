@@ -1,5 +1,6 @@
 package cn.devifish.readme.view.adapter
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,11 @@ import cn.devifish.readme.view.base.BaseViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.list_item_stack.view.*
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.content.ContextCompat.startActivity
+import android.widget.ImageView
+import cn.devifish.readme.view.module.bookdetail.BookDetailActivity
+
 
 /**
  * Created by zhang on 2017/6/9.
@@ -56,6 +62,9 @@ class StackRecyclerAdapter(list: MutableList<Stack>) : BaseRecyclerAdapter<Stack
 
         override fun onItemClick(view: View, position: Int) {
             Log.i("ss", stack!!.list!!.get(position).title)
+            val intent = Intent(itemView.context, BookDetailActivity::class.java)
+            intent.putExtra("book", stack!!.list!!.get(position))
+            itemView.context.startActivity(intent)
         }
 
         override fun onItemLongClick(view: View, position: Int) {

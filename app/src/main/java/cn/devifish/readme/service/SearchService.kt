@@ -36,4 +36,13 @@ interface SearchService {
     @GET("/book/accurate-search")
     fun searchBooksByAuthor(@Query("author") author: String): Observable<BookData>
 
+    /**
+     * 关键字自动补全
+     * url: http://api.zhuishushenqi.com/book/auto-complete?query=天
+     * @param query
+     * @return
+     */
+    @GET("/book/auto-complete")
+    fun autoComplete(@Query("query") query: String): Observable<String>
+
 }

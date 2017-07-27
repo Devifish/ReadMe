@@ -9,6 +9,7 @@ import cn.devifish.readme.entity.bean.Major
 import cn.devifish.readme.provider.RankProvider
 import cn.devifish.readme.view.adapter.StackRecyclerAdapter
 import cn.devifish.readme.view.base.MainPageFragment
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.page_stack_main.*
 
 /**

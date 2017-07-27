@@ -17,6 +17,7 @@ import cn.devifish.readme.util.Config
 import cn.devifish.readme.view.adapter.MainViewPageAdapter
 import cn.devifish.readme.view.base.BaseActivity
 import cn.devifish.readme.view.module.login.LoginActivity
+import com.lapism.searchview.SearchView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,7 +28,7 @@ import okhttp3.OkHttpClient
  * Created by zhang on 2017/6/3.
  * 主页Activity
  */
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
     override fun bindLayout(): Int = R.layout.activity_main
 
@@ -43,6 +44,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         nav_view.setNavigationItemSelectedListener(this)
         view_pager.adapter = MainViewPageAdapter(this.supportFragmentManager)
         tab_layout.setupWithViewPager(view_pager)
+
+        search_bar.z = Float.MAX_VALUE
+        search_bar.setOnQueryTextListener(this)
 
         nav_view.getHeaderView(0).setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
         fab.setOnClickListener { view ->
@@ -68,7 +72,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_search -> {}
+            R.id.menu_search -> {
+                search_bar.open(true)}
             R.id.menu_exit -> this.finish()
         }
         return super.onOptionsItemSelected(item)
@@ -88,4 +93,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return false
+    }
+
 }
