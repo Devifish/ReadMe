@@ -4,12 +4,13 @@
     android:id="@+id/refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="5dp"
     tools:context="cn.devifish.readme.view.module.bookshelf.BookshelfFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_bookshelf"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp" />
+        style="@style/Main_Page_Padding" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

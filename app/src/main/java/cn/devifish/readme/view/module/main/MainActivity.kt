@@ -2,27 +2,28 @@ package cn.devifish.readme.view.module.main
 
 import android.content.Intent
 import android.net.Uri
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import cn.devifish.readme.R
-import cn.devifish.readme.entity.data.RankFemaleData
-import cn.devifish.readme.provider.RankProvider
-import cn.devifish.readme.provider.SearchProvider
+import cn.devifish.readme.provider.BookProvider
+import cn.devifish.readme.service.SearchService
 import cn.devifish.readme.util.Config
 import cn.devifish.readme.view.adapter.MainViewPageAdapter
 import cn.devifish.readme.view.base.BaseActivity
 import cn.devifish.readme.view.module.login.LoginActivity
+import com.lapism.searchview.SearchAdapter
+import com.lapism.searchview.SearchItem
 import com.lapism.searchview.SearchView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import okhttp3.OkHttpClient
+
 
 /**
  * Created by zhang on 2017/6/3.
@@ -30,9 +31,19 @@ import okhttp3.OkHttpClient
  */
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
+    private var searchAdapter: SearchAdapter? = null
+    private val searchItems: MutableList<SearchItem> = ArrayList()
+    private val searchService = BookProvider.getInstance().create(SearchService::class.java)
+
     override fun bindLayout(): Int = R.layout.activity_main
 
-    override fun initVar() {}
+    override fun initVar() {
+        searchAdapter = SearchAdapter(this).apply {
+            this.addOnItemClickListener { view, position ->
+                Log.i("ss", searchItems.get(position).toString())
+            }
+        }
+    }
 
     override fun initView() {
         setSupportActionBar(toolbar)
@@ -47,6 +58,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         search_bar.z = Float.MAX_VALUE
         search_bar.setOnQueryTextListener(this)
+        search_bar.adapter = searchAdapter
 
         nav_view.getHeaderView(0).setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
         fab.setOnClickListener { view ->
@@ -72,8 +84,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_search -> {
-                search_bar.open(true)}
+            R.id.menu_search -> search_bar.open(true)
             R.id.menu_exit -> this.finish()
         }
         return super.onOptionsItemSelected(item)
@@ -99,7 +110,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        return false
+        searchService.autoComplete(newText!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { auto ->
+                    searchItems.clear()
+                    auto.keywords!!.forEach { key -> searchItems.add(SearchItem(key)) }
+                    searchAdapter!!.setData(searchItems)
+                }
+        return true
     }
 
 }

@@ -1,14 +1,16 @@
-package cn.devifish.readme.util
+package cn.devifish.readme.provider
 
+import cn.devifish.readme.util.Config
+import cn.devifish.readme.util.OkHttpUtil
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.fastjson.FastJsonConverterFactory
 
 /**
- * Created by zhang on 2017/7/25.
+ * Created by zhang on 2017/7/27.
  *
  */
-class RetrofitUtil {
+class BookProvider {
 
     private object Inner {
         val Instance = Retrofit.Builder()
@@ -20,7 +22,7 @@ class RetrofitUtil {
     }
 
     companion object {
-        fun getInstance() = Inner.Instance
+        fun getInstance(): Retrofit = Inner.Instance
     }
 
 }

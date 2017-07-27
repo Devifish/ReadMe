@@ -10,6 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:translationZ="5dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -33,7 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:search_version="menu_item"
-
+        app:search_voice="false"
+        app:search_clear_on_close="true"
         app:search_hint="@string/search"/>
 
     <android.support.v4.view.ViewPager

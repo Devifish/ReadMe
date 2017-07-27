@@ -45,13 +45,12 @@ class StackRecyclerAdapter(list: MutableList<Stack>) : BaseRecyclerAdapter<Stack
             if (m.list == null) {
                 m.data.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            bookDate ->
-                                val books = bookDate.books!!.toMutableList()
-                                itemView.list.adapter = StackItemListRecyclerAdapter(books).apply {
-                                    setOnItemClickListener(this@StackHolder)
-                                }
-                                m.list = books
+                        .subscribe { bookDate ->
+                            val books = bookDate.books!!.toMutableList()
+                            itemView.list.adapter = StackItemListRecyclerAdapter(books).apply {
+                                setOnItemClickListener(this@StackHolder)
+                            }
+                            m.list = books
                         }
             }else {
                 itemView.list.adapter = StackItemListRecyclerAdapter(m.list as MutableList<Book>).apply {
@@ -61,7 +60,6 @@ class StackRecyclerAdapter(list: MutableList<Stack>) : BaseRecyclerAdapter<Stack
         }
 
         override fun onItemClick(view: View, position: Int) {
-            Log.i("ss", stack!!.list!!.get(position).title)
             val intent = Intent(itemView.context, BookDetailActivity::class.java)
             intent.putExtra("book", stack!!.list!!.get(position))
             itemView.context.startActivity(intent)

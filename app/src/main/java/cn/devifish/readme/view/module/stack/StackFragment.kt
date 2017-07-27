@@ -1,15 +1,16 @@
 package cn.devifish.readme.view.module.stack
 
+import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import cn.devifish.readme.R
 import cn.devifish.readme.entity.Stack
 import cn.devifish.readme.entity.bean.Gender
 import cn.devifish.readme.entity.bean.Major
-import cn.devifish.readme.provider.RankProvider
+import cn.devifish.readme.provider.BookProvider
+import cn.devifish.readme.service.RankService
 import cn.devifish.readme.view.adapter.StackRecyclerAdapter
 import cn.devifish.readme.view.base.MainPageFragment
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.page_stack_main.*
 
 /**
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.page_stack_main.*
 class StackFragment : MainPageFragment() {
 
     private val title = "书库"
+    private val rankService = BookProvider.getInstance().create(RankService::class.java)
 
     override fun bindLayout(): Int = R.layout.page_stack_main
     override fun getTitle(): String = this.title
@@ -26,14 +28,10 @@ class StackFragment : MainPageFragment() {
     override fun initVar() {}
 
     override fun initView(view: View?) {
-        super.initView(view)
-
         rv_stack.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val rankProvider = RankProvider()
         val stackList = arrayListOf<Stack>();
-        Major.values().forEach {
-            item ->
-                stackList.add( Stack(item.value, rankProvider.getBooksByCats(Gender.MALE, "hot", item.value, "", 0, 50)))
+        Major.values().forEach { item ->
+            stackList.add( Stack(item.value, rankService.getBooksByCats(Gender.MALE, "hot", item.value, "", 0, 50)))
         }
         rv_stack.adapter = StackRecyclerAdapter(stackList)
     }

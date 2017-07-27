@@ -1,5 +1,6 @@
 package cn.devifish.readme.service
 
+import cn.devifish.readme.entity.data.AutoCompleteData
 import cn.devifish.readme.entity.data.BookData
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -43,6 +44,6 @@ interface SearchService {
      * @return
      */
     @GET("/book/auto-complete")
-    fun autoComplete(@Query("query") query: String): Observable<String>
+    fun autoComplete(@Query("query") query: String): Observable<AutoCompleteData>
 
 }
