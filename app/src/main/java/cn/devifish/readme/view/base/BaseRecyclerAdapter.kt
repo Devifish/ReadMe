@@ -9,7 +9,17 @@ import android.view.ViewGroup
  * @author zhang
  */
 
-abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>(val list: MutableList<M>) : RecyclerView.Adapter<VH>() {
+abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>() : RecyclerView.Adapter<VH>() {
+
+    var data: MutableList<M>? = null
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    constructor(list : MutableList<M>) : this() {
+        this.data = list
+    }
 
     var listener: BaseViewHolder.OnItemClickListener? = null
 
@@ -17,7 +27,12 @@ abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>(val list: MutableL
 
     override fun onBindViewHolder(holder: VH, position: Int) = onBindView(holder, position)
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int {
+        if (data != null) {
+            return data!!.size
+        }
+        return 0
+    }
 
     protected abstract fun onCreateView(group: ViewGroup, viewType: Int): VH
     protected abstract fun onBindView(holder: VH, position: Int)
@@ -26,23 +41,32 @@ abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>(val list: MutableL
         this.listener = listener
     }
 
-    fun getItem(position: Int): M {
-        return this.list[position]
+    fun getItem(position: Int): M? {
+        if (data != null) {
+            return this.data!![position]
+        }
+        return null
     }
 
     fun removeItem(position: Int) {
-        list.removeAt(position)
-        notifyItemRemoved(position)
+        if (data != null) {
+            data!!.removeAt(position)
+            notifyItemRemoved(position)
+        }
     }
 
     fun removeItem(item: M) {
-        val position = list.indexOf(item)
-        if (position != -1) removeItem(position)
+        if (data != null) {
+            val position = data!!.indexOf(item)
+            if (position != -1) removeItem(position)
+        }
     }
 
     fun addItem(item: M, position: Int = itemCount) {
-        list.add(position, item)
-        notifyItemInserted(position)
+        if (data != null) {
+            data!!.add(position, item)
+            notifyItemInserted(position)
+        }
     }
 
 }

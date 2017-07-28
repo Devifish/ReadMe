@@ -22,7 +22,7 @@ class BookshelfFragment : MainPageFragment() {
     override fun getTitle(): String = this.title
 
     override fun initVar() {
-        adapter = BookshelfRecyclerAdapter(arrayListOf())
+        adapter = BookshelfRecyclerAdapter()
     }
 
     override fun initView(view: View?) {

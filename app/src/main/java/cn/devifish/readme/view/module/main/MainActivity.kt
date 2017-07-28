@@ -15,7 +15,9 @@ import cn.devifish.readme.service.SearchService
 import cn.devifish.readme.util.Config
 import cn.devifish.readme.view.adapter.MainViewPageAdapter
 import cn.devifish.readme.view.base.BaseActivity
+import cn.devifish.readme.view.module.bookdetail.BookDetailActivity
 import cn.devifish.readme.view.module.login.LoginActivity
+import cn.devifish.readme.view.module.search.SearchActivity
 import com.lapism.searchview.SearchAdapter
 import com.lapism.searchview.SearchItem
 import com.lapism.searchview.SearchView
@@ -40,7 +42,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun initVar() {
         searchAdapter = SearchAdapter(this).apply {
             this.addOnItemClickListener { view, position ->
-                Log.i("ss", searchItems.get(position).toString())
+                startSearchActivity(searchItems[position]._icon.toString())
             }
         }
     }
@@ -57,8 +59,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         tab_layout.setupWithViewPager(view_pager)
 
         search_bar.z = Float.MAX_VALUE
-        search_bar.setOnQueryTextListener(this)
         search_bar.adapter = searchAdapter
+        search_bar.setOnQueryTextListener(this)
 
         nav_view.getHeaderView(0).setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
         fab.setOnClickListener { view ->
@@ -106,19 +108,30 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        return false
+        if (query.isNullOrEmpty()) {
+            startSearchActivity(query.toString())
+        }
+        return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        searchService.autoComplete(newText!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { auto ->
-                    searchItems.clear()
-                    auto.keywords!!.forEach { key -> searchItems.add(SearchItem(key)) }
-                    searchAdapter!!.setData(searchItems)
-                }
+        if (newText.isNullOrEmpty()) {
+            searchService.autoComplete(newText.toString())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { (keywords) ->
+                        searchItems.clear()
+                        keywords!!.forEach { key -> searchItems.add(SearchItem(key)) }
+                        searchAdapter!!.setData(searchItems)
+                    }
+        }
         return true
+    }
+
+    fun startSearchActivity(searchText: String) {
+        val intent = Intent(this, SearchActivity::class.java)
+        intent.putExtra("searchText", searchText)
+        startActivity(intent)
     }
 
 }

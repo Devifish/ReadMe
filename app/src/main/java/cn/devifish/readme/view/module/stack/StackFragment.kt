@@ -1,6 +1,5 @@
 package cn.devifish.readme.view.module.stack
 
-import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import cn.devifish.readme.R
@@ -21,6 +20,8 @@ class StackFragment : MainPageFragment() {
 
     private val title = "书库"
     private val rankService = BookProvider.getInstance().create(RankService::class.java)
+    private val stackList = ArrayList<Stack>();
+    private val adapter = StackRecyclerAdapter();
 
     override fun bindLayout(): Int = R.layout.page_stack_main
     override fun getTitle(): String = this.title
@@ -29,14 +30,16 @@ class StackFragment : MainPageFragment() {
 
     override fun initView(view: View?) {
         rv_stack.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val stackList = arrayListOf<Stack>();
         Major.values().forEach { item ->
             stackList.add( Stack(item.value, rankService.getBooksByCats(Gender.MALE, "hot", item.value, "", 0, 50)))
         }
-        rv_stack.adapter = StackRecyclerAdapter(stackList)
+        rv_stack.adapter = adapter
+        adapter.data = stackList
+
     }
 
     override fun onRefresh() {
+        stackList.clear()
     }
 
     override fun onItemClick(view: View, position: Int) {
