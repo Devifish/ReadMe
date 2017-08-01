@@ -1,14 +1,17 @@
 package cn.devifish.readme.view.module.main
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import cn.devifish.readme.R
 import cn.devifish.readme.provider.BookProvider
 import cn.devifish.readme.service.SearchService
@@ -18,11 +21,14 @@ import cn.devifish.readme.view.base.BaseActivity
 import cn.devifish.readme.view.module.bookdetail.BookDetailActivity
 import cn.devifish.readme.view.module.login.LoginActivity
 import cn.devifish.readme.view.module.search.SearchActivity
+import com.github.clans.fab.FloatingActionButton
 import com.lapism.searchview.SearchAdapter
 import com.lapism.searchview.SearchItem
 import com.lapism.searchview.SearchView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.action_btn_main.*
+import kotlinx.android.synthetic.main.action_btn_main.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -31,11 +37,11 @@ import kotlinx.android.synthetic.main.app_bar_main.*
  * Created by zhang on 2017/6/3.
  * 主页Activity
  */
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, ViewPager.OnPageChangeListener {
 
-    private var searchAdapter: SearchAdapter? = null
-    private val searchItems: MutableList<SearchItem> = ArrayList()
+    private val searchItems = ArrayList<SearchItem> ()
     private val searchService = BookProvider.getInstance().create(SearchService::class.java)
+    private var searchAdapter: SearchAdapter? = null
 
     override fun bindLayout(): Int = R.layout.activity_main
 
@@ -57,17 +63,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         nav_view.setNavigationItemSelectedListener(this)
         view_pager.adapter = MainViewPageAdapter(this.supportFragmentManager)
         tab_layout.setupWithViewPager(view_pager)
+        view_pager.addOnPageChangeListener(this)
 
         search_bar.z = Float.MAX_VALUE
         search_bar.adapter = searchAdapter
         search_bar.setOnQueryTextListener(this)
 
         nav_view.getHeaderView(0).setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .show()
-        }
 
     }
 
@@ -108,15 +110,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        if (query.isNullOrEmpty()) {
+        if (query != null && query.isNotEmpty()) {
             startSearchActivity(query.toString())
         }
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        if (newText.isNullOrEmpty()) {
-            searchService.autoComplete(newText.toString())
+        if (newText != null && newText.isNotEmpty()) {
+            searchService.autoComplete(newText)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe { (keywords) ->
@@ -127,6 +129,27 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
         return true
     }
+
+    override fun onPageSelected(position: Int) {
+        when(position) {
+            Config.Page.BOOKSHELF_PAGE -> {
+                nav_view.setCheckedItem(R.id.nav_bookshelf)
+                fab_menu.showMenu(true)
+            }
+            Config.Page.STACK_PAGE -> {
+                nav_view.setCheckedItem(R.id.nav_stack)
+                fab_menu.hideMenu(false)
+            }
+            Config.Page.COMMUNITY_PAGE -> {
+                nav_view.setCheckedItem(R.id.nav_community)
+                fab_menu.showMenu(true)
+            }
+        }
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {}
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
     fun startSearchActivity(searchText: String) {
         val intent = Intent(this, SearchActivity::class.java)

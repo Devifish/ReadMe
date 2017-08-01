@@ -19,7 +19,6 @@ class CommunityFragment: MainPageFragment() {
     }
 
     override fun initView(view: View?) {
-        super.initView(view)
     }
 
     override fun onRefresh() {

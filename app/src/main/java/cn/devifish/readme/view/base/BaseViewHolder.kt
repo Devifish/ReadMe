@@ -5,7 +5,7 @@ import android.view.View
 
 /**
  * Created by zhang on 2017/2/22.
-
+ * 基类
  * @author zhang
  */
 
@@ -17,12 +17,15 @@ abstract class BaseViewHolder<M> constructor(itemView: View, listener: BaseViewH
     }
 
     private var listener: OnItemClickListener? = null
+        set(value) {
+            field = value
+            itemView.setOnClickListener(this)
+            itemView.setOnLongClickListener(this)
+        }
 
     init {
         if (listener != null) {
             this.listener = listener
-            itemView.setOnClickListener(this)
-            itemView.setOnLongClickListener(this)
         }
     }
 

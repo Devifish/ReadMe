@@ -16,20 +16,24 @@ import kotlinx.android.synthetic.main.page_bookshelf_main.*
 class BookshelfFragment : MainPageFragment() {
 
     private val title = "书架"
-    private var adapter: BookshelfRecyclerAdapter? = null
+    private val adapter: BookshelfRecyclerAdapter = BookshelfRecyclerAdapter()
 
     override fun bindLayout(): Int = R.layout.page_bookshelf_main
     override fun getTitle(): String = this.title
 
-    override fun initVar() {
-        adapter = BookshelfRecyclerAdapter()
-    }
+    override fun initVar() {}
 
     override fun initView(view: View?) {
-        super.initView(view)
+        refresh.setOnRefreshListener(this)
+        refresh.setColorSchemeResources(
+                android.R.color.holo_blue_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_red_light)
+
         rv_bookshelf.layoutManager = GridLayoutManager(context, 3)
         rv_bookshelf.adapter = adapter
-        adapter!!.setOnItemClickListener(this)
+        adapter.setOnItemClickListener(this)
     }
 
     override fun onRefresh() {}

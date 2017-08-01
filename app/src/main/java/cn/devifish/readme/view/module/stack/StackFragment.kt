@@ -1,5 +1,6 @@
 package cn.devifish.readme.view.module.stack
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import cn.devifish.readme.R
@@ -10,6 +11,7 @@ import cn.devifish.readme.provider.BookProvider
 import cn.devifish.readme.service.RankService
 import cn.devifish.readme.view.adapter.StackRecyclerAdapter
 import cn.devifish.readme.view.base.MainPageFragment
+import cn.devifish.readme.view.module.search.SearchActivity
 import kotlinx.android.synthetic.main.page_stack_main.*
 
 /**
@@ -29,13 +31,14 @@ class StackFragment : MainPageFragment() {
     override fun initVar() {}
 
     override fun initView(view: View?) {
-        rv_stack.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        xrv_stack.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        xrv_stack.adapter = adapter
         Major.values().forEach { item ->
             stackList.add( Stack(item.value, rankService.getBooksByCats(Gender.MALE, "hot", item.value, "", 0, 50)))
         }
-        rv_stack.adapter = adapter
         adapter.data = stackList
-
+        adapter.setOnItemClickListener(this)
+        adapter.activity = activity
     }
 
     override fun onRefresh() {
@@ -43,6 +46,9 @@ class StackFragment : MainPageFragment() {
     }
 
     override fun onItemClick(view: View, position: Int) {
+        val intent = Intent(this.context, SearchActivity::class.java)
+        intent.putExtra("searchText", "")
+        startActivity(intent)
     }
 
     override fun onItemLongClick(view: View, position: Int) {

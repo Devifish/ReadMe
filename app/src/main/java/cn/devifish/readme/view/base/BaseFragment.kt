@@ -18,15 +18,14 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (bindLayout() != 0) {
-            return inflater!!.inflate(bindLayout(), container, false)
+        if (inflater != null && bindLayout() != 0) {
+            return inflater.inflate(bindLayout(), container, false)
         }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initVar()
         initView(view)
     }

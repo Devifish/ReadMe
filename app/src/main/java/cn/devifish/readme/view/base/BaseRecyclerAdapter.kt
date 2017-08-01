@@ -17,11 +17,11 @@ abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>() : RecyclerView.A
             notifyDataSetChanged()
         }
 
-    constructor(list : MutableList<M>) : this() {
+    constructor(list: MutableList<M>) : this() {
         this.data = list
     }
 
-    var listener: BaseViewHolder.OnItemClickListener? = null
+    protected var listener: BaseViewHolder.OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH = onCreateView(parent, viewType)
 
@@ -37,7 +37,7 @@ abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>() : RecyclerView.A
     protected abstract fun onCreateView(group: ViewGroup, viewType: Int): VH
     protected abstract fun onBindView(holder: VH, position: Int)
 
-    fun setOnItemClickListener(listener: BaseViewHolder.OnItemClickListener?) {
+    open fun setOnItemClickListener(listener: BaseViewHolder.OnItemClickListener?) {
         this.listener = listener
     }
 

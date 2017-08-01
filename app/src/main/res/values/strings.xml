@@ -1,4 +1,8 @@
 <resources>
+    <array name="fab_name">
+
+    </array>
+    
     <string name="app_name">读我吧</string>
 
     <string name="login">登陆/注册</string>
@@ -38,7 +42,7 @@
     <string name="setting">设置</string>
     <string name="exit">退出</string>
     <string name="test">测试</string>
-    <string name="edit">修改</string>
+    <string name="edit">编辑</string>
     <string name="search">搜索</string>
     <string name="add">添加</string>
     <string name="tools">工具</string>
@@ -46,4 +50,5 @@
     <string name="send">反馈</string>
     <string name="other">其他</string>
     <string name="info">关于</string>
+    <string name="more">更多</string>
 </resources>
