@@ -1,21 +1,15 @@
 package cn.devifish.readme.view.module.main
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.LinearLayout
 import cn.devifish.readme.R
 import cn.devifish.readme.provider.BookProvider
 import cn.devifish.readme.service.SearchService
@@ -32,9 +26,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.search_sheet_main.*
-import android.view.WindowManager
-
-
 
 
 /**
@@ -59,11 +50,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
         }
         searchRecyclerAdapter = SearchRecyclerAdapter()
-        bottomSheet = BottomSheetDialog(this).apply {
-            this.setContentView(R.layout.search_sheet_main)
-            this.search_rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            this.search_rv.adapter = searchRecyclerAdapter
-        }
     }
 
     override fun initView() {
@@ -81,6 +67,23 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         search_bar.z = Float.MAX_VALUE
         search_bar.adapter = searchAdapter
         search_bar.setOnQueryTextListener(this)
+
+        bottomSheet = BottomSheetDialog(this).apply {
+            this.setContentView(R.layout.search_sheet_main)
+            this.setCancelable(true)
+            this.setCanceledOnTouchOutside(true)
+            this.search_rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            this.search_rv.adapter = searchRecyclerAdapter
+            this.sheet_toolbar.inflateMenu(R.menu.menu_bottom_sheet)
+            this.sheet_toolbar.setOnMenuItemClickListener {
+                item: MenuItem? ->
+                    when (item!!.itemId) {
+                        R.id.menu_close_sheet -> this.cancel()
+                    }
+                    true
+            }
+            this.create()
+        }
 
         nav_view.getHeaderView(0).setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
     }

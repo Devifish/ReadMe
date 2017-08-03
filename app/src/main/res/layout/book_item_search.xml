@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="书名"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@android:color/black"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="作者"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:layout_below="@+id/title"
             android:layout_alignStart="@+id/title"
             android:layout_marginTop="@dimen/card_view_margin" />
@@ -54,7 +54,7 @@
             android:layout_marginEnd="@dimen/card_view_margin"
             android:layout_marginBottom="@dimen/card_view_margin"
             android:layout_alignParentEnd="true"
-            android:maxLines="4"
+            android:maxLines="3"
             android:ellipsize="end"/>
 
     </RelativeLayout>

@@ -4,7 +4,7 @@
     android:id="@+id/search_sheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="384dp"
+    android:minHeight="700dp"
     android:orientation="vertical"
     android:background="@color/dark_background">
 
@@ -16,7 +16,7 @@
             android:id="@+id/sheet_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/search" />
+            app:title="@string/search_result" />
 
     </android.support.design.widget.AppBarLayout>
 
