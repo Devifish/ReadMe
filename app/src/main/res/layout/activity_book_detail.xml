@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="cn.devifish.readme.view.module.bookdetail.BookDetailActivity">
 
+    <ImageView
+        android:id="@+id/book_image"
+        android:transitionName="book_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/test" />
+
 </android.support.constraint.ConstraintLayout>

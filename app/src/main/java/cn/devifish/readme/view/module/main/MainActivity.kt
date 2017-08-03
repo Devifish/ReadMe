@@ -3,53 +3,66 @@ package cn.devifish.readme.view.module.main
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import cn.devifish.readme.R
 import cn.devifish.readme.provider.BookProvider
 import cn.devifish.readme.service.SearchService
 import cn.devifish.readme.util.Config
 import cn.devifish.readme.view.adapter.MainViewPageAdapter
+import cn.devifish.readme.view.adapter.SearchRecyclerAdapter
 import cn.devifish.readme.view.base.BaseActivity
-import cn.devifish.readme.view.module.bookdetail.BookDetailActivity
 import cn.devifish.readme.view.module.login.LoginActivity
-import cn.devifish.readme.view.module.search.SearchActivity
-import com.github.clans.fab.FloatingActionButton
 import com.lapism.searchview.SearchAdapter
 import com.lapism.searchview.SearchItem
 import com.lapism.searchview.SearchView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.action_btn_main.*
-import kotlinx.android.synthetic.main.action_btn_main.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.search_sheet_main.*
+import android.view.WindowManager
+
+
 
 
 /**
  * Created by zhang on 2017/6/3.
  * 主页Activity
  */
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, ViewPager.OnPageChangeListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
+        SearchView.OnQueryTextListener, ViewPager.OnPageChangeListener {
 
     private val searchItems = ArrayList<SearchItem> ()
     private val searchService = BookProvider.getInstance().create(SearchService::class.java)
     private var searchAdapter: SearchAdapter? = null
+    private var searchRecyclerAdapter: SearchRecyclerAdapter? = null
+    private var bottomSheet:BottomSheetDialog? = null
 
     override fun bindLayout(): Int = R.layout.activity_main
 
     override fun initVar() {
         searchAdapter = SearchAdapter(this).apply {
             this.addOnItemClickListener { view, position ->
-                startSearchActivity(searchItems[position]._icon.toString())
+                startSearchActivity(searchItems[position]._text.toString())
             }
+        }
+        searchRecyclerAdapter = SearchRecyclerAdapter()
+        bottomSheet = BottomSheetDialog(this).apply {
+            this.setContentView(R.layout.search_sheet_main)
+            this.search_rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            this.search_rv.adapter = searchRecyclerAdapter
         }
     }
 
@@ -70,7 +83,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         search_bar.setOnQueryTextListener(this)
 
         nav_view.getHeaderView(0).setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
-
     }
 
     override fun onBackPressed() {
@@ -134,15 +146,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         when(position) {
             Config.Page.BOOKSHELF_PAGE -> {
                 nav_view.setCheckedItem(R.id.nav_bookshelf)
-                fab_menu.showMenu(true)
             }
             Config.Page.STACK_PAGE -> {
                 nav_view.setCheckedItem(R.id.nav_stack)
-                fab_menu.hideMenu(false)
             }
             Config.Page.COMMUNITY_PAGE -> {
                 nav_view.setCheckedItem(R.id.nav_community)
-                fab_menu.showMenu(true)
             }
         }
     }
@@ -152,9 +161,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
     fun startSearchActivity(searchText: String) {
-        val intent = Intent(this, SearchActivity::class.java)
-        intent.putExtra("searchText", searchText)
-        startActivity(intent)
+        search_bar.close(true)
+
+        searchService.searchBooks(searchText)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    bookData ->
+                        searchRecyclerAdapter!!.data = bookData.books!!.toMutableList()
+                        bottomSheet!!.show()
+                }
     }
 
 }

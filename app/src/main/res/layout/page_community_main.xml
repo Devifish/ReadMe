@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refresh"
     android:layout_width="match_parent"
@@ -8,9 +8,9 @@
     tools:context="cn.devifish.readme.view.module.bookshelf.BookshelfFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_community"
+        android:id="@+id/xrv_community"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/Main_Page_Padding" />
 
-</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

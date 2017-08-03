@@ -10,12 +10,12 @@
     android:focusable="true">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/book_image"
             android:layout_width="match_parent"
             android:layout_height="118dp"
             android:src="@color/colorPrimaryDark"
             android:transitionName="book_image"
-            android:contentDescription="@string/book_class"
+            android:contentDescription="@string/test"
             android:scaleType="fitXY"/>
 
         <LinearLayout
