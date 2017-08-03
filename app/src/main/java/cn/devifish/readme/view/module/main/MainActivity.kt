@@ -45,7 +45,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun initVar() {
         searchAdapter = SearchAdapter(this).apply {
-            this.addOnItemClickListener { view, position ->
+            this.addOnItemClickListener { _, position ->
                 startSearchActivity(searchItems[position]._text.toString())
             }
         }
@@ -75,12 +75,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             this.search_rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             this.search_rv.adapter = searchRecyclerAdapter
             this.sheet_toolbar.inflateMenu(R.menu.menu_bottom_sheet)
-            this.sheet_toolbar.setOnMenuItemClickListener {
-                item: MenuItem? ->
-                    when (item!!.itemId) {
-                        R.id.menu_close_sheet -> this.cancel()
-                    }
-                    true
+            this.sheet_toolbar.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.menu_close_sheet -> this.cancel()
+                }
+                true
             }
             this.create()
         }
@@ -169,10 +168,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         searchService.searchBooks(searchText)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    bookData ->
-                        searchRecyclerAdapter!!.data = bookData.books!!.toMutableList()
-                        bottomSheet!!.show()
+                .subscribe { bookData ->
+                    searchRecyclerAdapter!!.data = bookData.books!!.toMutableList()
+                    bottomSheet!!.show()
                 }
     }
 

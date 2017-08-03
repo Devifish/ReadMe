@@ -29,7 +29,10 @@
             android:name=".view.module.login.LoginActivity"
             android:label="@string/login"
             android:theme="@style/AppTheme" />
-        <activity android:name=".view.module.bookdetail.BookDetailActivity" />
+        <activity
+            android:name=".view.module.bookdetail.BookDetailActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
