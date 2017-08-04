@@ -28,7 +28,7 @@
                 android:fitsSystemWindows="true">
 
                 <ImageView
-                    android:id="@+id/image"
+                    android:id="@+id/header_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/test"
@@ -41,9 +41,8 @@
                     android:transitionName="book_image"
                     android:layout_width="90dp"
                     android:layout_height="118dp"
-                    android:layout_alignParentBottom="true"
                     android:scaleType="fitXY"
-                    android:layout_centerVertical="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:contentDescription="@string/test" />
@@ -98,18 +97,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_add"
-        app:layout_anchor="@id/appBarLayout"
-        app:layout_anchorGravity="bottom|end" />
+        app:layout_anchor="@+id/appBarLayout"
+        app:layout_anchorGravity="right|bottom" />
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_book_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </android.support.v4.widget.NestedScrollView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

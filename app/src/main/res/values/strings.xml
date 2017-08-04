@@ -24,6 +24,9 @@
     <string name="book_chapter">章节列表</string>
     <string name="book_lastRead">上次阅读：</string>
     <string name="book_updateInfo">状态</string>
+    <string name="book_serial">连载中</string>
+    <string name="book_end">已完结</string>
+    <string name="book_chapterCount" formatted="true">共%s章</string>
     <string name="book_chapterLength">章节数</string>
     <string name="book_updateTime">更新时间</string>
     <string name="book_noRead">还未开始阅读</string>

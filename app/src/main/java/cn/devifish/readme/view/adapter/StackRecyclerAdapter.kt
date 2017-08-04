@@ -3,6 +3,7 @@ package cn.devifish.readme.view.adapter
 import android.app.Activity
 import android.content.Intent
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ import cn.devifish.readme.view.base.BaseViewHolder
 import cn.devifish.readme.view.module.bookdetail.BookDetailActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.app_bar_main.view.*
 import kotlinx.android.synthetic.main.book_item_stack.view.*
 import kotlinx.android.synthetic.main.list_item_stack.view.*
 
@@ -73,8 +76,8 @@ class StackRecyclerAdapter() : BaseRecyclerAdapter<Stack, StackRecyclerAdapter.S
             val intent = Intent(itemView.context, BookDetailActivity::class.java)
             intent.putExtra("book", stack!!.list!!.get(position))
             itemView.context.startActivity(intent,
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            this@StackRecyclerAdapter.activity, view.book_image, "book_image").toBundle())
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                                view.book_image, "book_image").toBundle())
         }
 
         override fun onItemLongClick(view: View, position: Int) {}

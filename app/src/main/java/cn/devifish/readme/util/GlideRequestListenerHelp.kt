@@ -10,7 +10,7 @@ import com.bumptech.glide.request.target.Target
  * Created by zhang on 2017/8/4.
  *
  */
-open class GlideRequestListener : RequestListener<Drawable> {
+open class GlideRequestListenerHelp : RequestListener<Drawable> {
     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
         return false
     }
