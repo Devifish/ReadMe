@@ -33,8 +33,7 @@ class SearchRecyclerAdapter : BaseRecyclerAdapter<Book, SearchRecyclerAdapter.Se
             itemView.title.text = m.title
             itemView.author.text = m.author
             itemView.intro.text = m.shortIntro
-            Glide.with(itemView.context)
-                    .load(Config.IMG_BASE_URL + m.cover)
+            Glide.with(itemView.context).load(Config.IMG_BASE_URL + m.cover)
                     .into(itemView.book_image);
         }
 

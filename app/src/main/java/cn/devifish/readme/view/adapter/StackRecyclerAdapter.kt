@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import cn.devifish.readme.R
 import cn.devifish.readme.entity.Book
 import cn.devifish.readme.entity.Stack
+import cn.devifish.readme.util.RxJavaUtil
 import cn.devifish.readme.view.base.BaseRecyclerAdapter
 import cn.devifish.readme.view.base.BaseViewHolder
 import cn.devifish.readme.view.module.bookdetail.BookDetailActivity
@@ -55,9 +56,7 @@ class StackRecyclerAdapter() : BaseRecyclerAdapter<Stack, StackRecyclerAdapter.S
 
             //加载书库列表中的内容
             if (m.list == null) {
-                m.data.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { bookDate ->
+                RxJavaUtil.getObservable(m.data).subscribe { bookDate ->
                             val books = bookDate.books!!.toMutableList()
                             adapter.data = books
                             adapter.setOnItemClickListener(this@StackHolder)

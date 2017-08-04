@@ -31,7 +31,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".view.module.bookdetail.BookDetailActivity"
-            android:label=""
+            android:label="@string/book_detail"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <meta-data

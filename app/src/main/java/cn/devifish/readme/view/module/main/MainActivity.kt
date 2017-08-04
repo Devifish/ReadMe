@@ -14,6 +14,7 @@ import cn.devifish.readme.R
 import cn.devifish.readme.provider.BookProvider
 import cn.devifish.readme.service.SearchService
 import cn.devifish.readme.util.Config
+import cn.devifish.readme.util.RxJavaUtil
 import cn.devifish.readme.view.adapter.MainViewPageAdapter
 import cn.devifish.readme.view.adapter.SearchRecyclerAdapter
 import cn.devifish.readme.view.base.BaseActivity
@@ -132,14 +133,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText != null && newText.isNotEmpty()) {
-            searchService.autoComplete(newText)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { (keywords) ->
-                        searchItems.clear()
-                        keywords!!.forEach { key -> searchItems.add(SearchItem(key)) }
-                        searchAdapter!!.setData(searchItems)
-                    }
+            RxJavaUtil.getObservable(searchService.autoComplete(newText)).subscribe { (keywords) ->
+                searchItems.clear()
+                keywords!!.forEach { key -> searchItems.add(SearchItem(key)) }
+                searchAdapter!!.setData(searchItems)
+            }
         }
         return true
     }
@@ -165,13 +163,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     fun startSearchActivity(searchText: String) {
         search_bar.close(true)
 
-        searchService.searchBooks(searchText)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { bookData ->
-                    searchRecyclerAdapter!!.data = bookData.books!!.toMutableList()
-                    bottomSheet!!.show()
-                }
+        RxJavaUtil.getObservable(searchService.searchBooks(searchText)).subscribe { bookData ->
+            searchRecyclerAdapter!!.data = bookData.books!!.toMutableList()
+            bottomSheet!!.show()
+        }
     }
 
 }

@@ -33,8 +33,7 @@ class StackItemListRecyclerAdapter(): BaseRecyclerAdapter<Book, StackItemListRec
         override fun bind(m: Book) {
             itemView.title.text = m.title
             itemView.author.text = m.author
-            Glide.with(itemView.context)
-                    .load(Config.IMG_BASE_URL + m.cover)
+            Glide.with(itemView.context).load(Config.IMG_BASE_URL + m.cover)
                     .into(itemView.book_image);
         }
 
