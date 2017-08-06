@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="search_shortcut"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/search">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="cn.devifish.readme"
+            android:targetClass="cn.devifish.readme.view.module.main.MainActivity"/>
+    </shortcut>
+    <shortcut
+        android:shortcutId="book_stack_shortcut"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/book_stack">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="cn.devifish.readme"
+            android:targetClass="cn.devifish.readme.view.module.main.MainActivity"/>
+    </shortcut>
+</shortcuts>

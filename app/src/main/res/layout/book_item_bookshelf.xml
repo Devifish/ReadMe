@@ -17,7 +17,7 @@
             android:layout_height="128dp"
             android:src="@color/colorPrimaryDark"
             android:transitionName="book_image"
-            android:contentDescription="@string/book_class"
+            android:contentDescription="@string/book_stack"
             android:scaleType="fitXY"/>
 
         <LinearLayout

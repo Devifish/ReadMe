@@ -10,7 +10,7 @@
     <string name="sign_body">这个人很懒，没有写签名</string>
 
     <string name="book_list">书架</string>
-    <string name="book_class">分类</string>
+    <string name="book_stack">书库</string>
     <string name="community">社区</string>
 
     <string name="book_detail">书籍详情</string>

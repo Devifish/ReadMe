@@ -10,7 +10,7 @@
         <item
             android:id="@+id/nav_stack"
             android:icon="@drawable/ic_list"
-            android:title="@string/book_class" />
+            android:title="@string/book_stack" />
         <item
             android:id="@+id/nav_community"
             android:icon="@drawable/ic_people"
