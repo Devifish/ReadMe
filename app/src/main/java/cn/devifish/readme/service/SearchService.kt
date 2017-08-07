@@ -14,6 +14,13 @@ import retrofit2.http.Query
 interface SearchService {
 
     /**
+     * 获取热词
+     * url: http://api.zhuishushenqi.com/book/hot-word
+     */
+    @GET("/book/hot-word")
+    fun getHotWord(): Observable<String>
+
+    /**
      * 书籍查询
      * url: http://api.zhuishushenqi.com/book/fuzzy-search?query=遮天
      * @param query 书名

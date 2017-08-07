@@ -18,7 +18,7 @@ class CommunityFragment: MainPageFragment() {
     override fun initVar() {
     }
 
-    override fun initView(view: View?) {
+    override fun initView(view: View) {
     }
 
     override fun onRefresh() {

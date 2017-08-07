@@ -10,7 +10,7 @@ import cn.devifish.readme.provider.BookProvider
 import cn.devifish.readme.service.RankService
 import cn.devifish.readme.view.adapter.StackRecyclerAdapter
 import cn.devifish.readme.view.base.MainPageFragment
-import kotlinx.android.synthetic.main.page_stack_main.*
+import kotlinx.android.synthetic.main.page_stack_main.view.*
 
 
 /**
@@ -29,9 +29,9 @@ class StackFragment : MainPageFragment() {
 
     override fun initVar() {}
 
-    override fun initView(view: View?) {
-        rv_stack.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rv_stack.adapter = adapter
+    override fun initView(view: View) {
+        view.rv_stack.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        view.rv_stack.adapter = adapter
         Major.values().forEach { item ->
             stackList.add( Stack(item.value, rankService.getBooksByCats(Gender.MALE, "hot", item.value, "", 0, 50)))
         }

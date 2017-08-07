@@ -10,10 +10,16 @@ import java.util.concurrent.TimeUnit
 class OkHttpUtil private constructor() {
 
     private object Inner {
-        var Instance = OkHttpClient.Builder()
+        val Instance = OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5, TimeUnit.SECONDS)
                 .writeTimeout(5, TimeUnit.SECONDS)
+                .addInterceptor { chain ->
+                    val request = chain.request().newBuilder()
+                            .header("User-Agent","ZhuiShuShenQi/3.10.1 (Android;;)")
+                            .build()
+                    chain.proceed(request)
+                }
                 .build()
     }
 

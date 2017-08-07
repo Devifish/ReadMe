@@ -1,5 +1,6 @@
 package cn.devifish.readme.view.module.bookdetail
 
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.support.design.widget.Snackbar
@@ -17,6 +18,7 @@ import cn.devifish.readme.util.RSBlurUtil
 import cn.devifish.readme.util.TransitionListenerHelp
 import cn.devifish.readme.view.adapter.BookDetailRecyclerAdapter
 import cn.devifish.readme.view.base.BaseActivity
+import cn.devifish.readme.view.module.read.ReadActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.request.target.Target
@@ -100,10 +102,11 @@ class BookDetailActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(p0: View) {
         when (p0.id) {
             R.id.fab -> {
-                Snackbar.make(p0, R.string.test, Snackbar.LENGTH_SHORT)
+                /*Snackbar.make(p0, R.string.test, Snackbar.LENGTH_SHORT)
                         .setAction(R.string.close, { view ->
 
-                        }).show()
+                        }).show()*/
+                startActivity(Intent(this, ReadActivity::class.java))
             }
         }
     }

@@ -24,7 +24,7 @@ abstract class BaseFragment : Fragment() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initVar()
         initView(view)
@@ -34,6 +34,6 @@ abstract class BaseFragment : Fragment() {
     protected abstract fun bindLayout(): Int
 
     protected abstract fun initVar()
-    protected abstract fun initView(view: View?)
+    protected abstract fun initView(view: View)
 
 }

@@ -88,6 +88,7 @@ class BookDetailRecyclerAdapter(val book: Book) : BaseRecyclerAdapter<Any, BaseV
 
         override fun bind(m: Any) {
             itemView.name.text = "更多书籍"
+
         }
 
     }

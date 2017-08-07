@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_gravity="bottom|center_horizontal"
+    android:background="@android:color/black"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    tools:showIn="@layout/activity_read">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_brightness"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
+        android:text="夜间" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_screen_rotation"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
+        android:text="切换" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_settings"
+        android:drawableTint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
+        android:text="@string/setting" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_list"
+        android:drawableTint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
+        android:text="@string/book_list" />
+
+</LinearLayout>

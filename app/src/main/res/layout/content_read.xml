@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="呵呵呵呵呵呵呵呵呵呵呵呵" />
+
+    <TextView
+        android:id="@+id/chapter_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="#444"
+        android:layout_below="@id/book_title"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_marginTop="@dimen/palette_vertical_margin"
+        android:layout_marginBottom="@dimen/palette_vertical_margin"
+        android:text="@string/dummy_content"/>
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

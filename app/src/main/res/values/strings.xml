@@ -2,7 +2,7 @@
     <array name="fab_name">
 
     </array>
-    
+
     <string name="app_name">读我吧</string>
 
     <string name="login">登陆/注册</string>
@@ -51,9 +51,12 @@
     <string name="search_result">搜索结果</string>
     <string name="add">添加</string>
     <string name="tools">工具</string>
+    <string name="change_src">换源</string>
     <string name="share">分享</string>
     <string name="send">反馈</string>
     <string name="other">其他</string>
     <string name="info">关于</string>
     <string name="more">更多</string>
+
+    <string name="dummy_content">　　卷入了三十三天所有巅峰强者的一场浩劫，人皇与他的对手最终一战，打碎了深渊世界，曾经封镇深渊魔王的神器，一张神秘的紫色卡片，却消失在时空漩涡中，横穿无尽的时空。 　　辽阔的蛮荒，武道文明还处于初始阶段，正在缓慢发展，很多蛮荒的绝世雄主，依旧在艰难的摸索着武道之路。 　　一个名叫易云的少年，拿着这张不知哪里来的紫色卡片，踏上征程。 　　这是一个瑰丽而又充满未知的真武世界，这是一个平凡少年成就绝世强者的传奇。 　　************************ 　　作者蚕茧里的牛，已有完本作品《武极天下》，书荒可以看一看。</string>
 </resources>
