@@ -4,7 +4,7 @@ import cn.devifish.readme.util.Config
 import cn.devifish.readme.util.OkHttpUtil
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.fastjson.FastJsonConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * Created by zhang on 2017/7/27.
@@ -16,9 +16,9 @@ class BookProvider {
         val Instance = Retrofit.Builder()
                 .baseUrl(Config.API_BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(FastJsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(OkHttpUtil.getInstance())
-                .build()!!;
+                .build()!!
     }
 
     companion object {
